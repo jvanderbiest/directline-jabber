@@ -1,0 +1,52 @@
+{
+  "name": "directline-jabber",
+  "version": "0.1.0",
+  "description": "uses chatdown to generate transcript files to automate testing using a directline connection",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha",
+    "prestart": "npm run build",
+    "build": "tsc",
+    "start": "node out/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvanderbiest/directline-jabber.git"
+  },
+  "keywords": [
+    "botframework",
+    "directline",
+    "automated",
+    "testing",
+    "chatdown",
+    "transcript",
+    "chat"
+  ],
+  "author": "Jonas Van der Biest",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jvanderbiest/directline-jabber/issues"
+  },
+  "homepage": "https://github.com/jvanderbiest/directline-jabber#readme",
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/npmlog": "^4.1.1",
+    "chatdown": "^1.2.0",
+    "mocha": "^6.1.4",
+    "path": "^0.12.7",
+    "read-text-file": "^1.1.0",
+    "request": "^2.88.0"
+  },
+  "dependencies": {
+    "@types/node": "^11.13.7",
+    "@types/request": "^2.48.1",
+    "@types/request-promise": "^4.1.42",
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "npmlog": "^4.1.2",
+    "reflect-metadata": "^0.1.13",
+    "request-promise": "^4.2.4",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.4.4"
+  }
+}
