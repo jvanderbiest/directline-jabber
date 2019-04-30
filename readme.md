@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jvanderbiest/directline-jabber.svg?branch=master)](https://travis-ci.com/jvanderbiest/directline-jabber)
+
 # DirectLine Jabber
 DirectLine-Jabber is a testing tool that communicates over the [DirectLine channel](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-directline?view=azure-bot-service-4.0) to test your Microsoft BotFramework transcripts.
 This node.js application, written in typescript, reads your [Chatdown](https://github.com/Microsoft/botbuilder-tools/tree/master/packages/Chatdown) conversation file and sends all chat activity to DirectLine. It will try to match the expected text of the bot with the one in the conversation file. 
