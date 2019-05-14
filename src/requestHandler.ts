@@ -7,7 +7,17 @@ import { Activity } from 'chatdown-domain';
 import { EventActivityRequest } from './domain/requests/eventActivityRequest';
 import log = require('npmlog');
 
+/** Handles http requests */
 export class RequestHandler {
+  _directlineSecret: string;
+
+  /**
+   * @param {string} directlineSecret - The Directline secret that is linked to your Azure bot service directline channel. Used to authenticate with Directline API.
+   */
+  constructor(directlineSecret: string) {
+    this._directlineSecret = directlineSecret; 
+  }
+
   async getActivityResponse(authResponse: AuthenticationResponse, watermark: number): Promise<Activity[]> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
 
@@ -34,9 +44,9 @@ export class RequestHandler {
     }
 
     await request.get(authOptions)
-    .then(eventRequestCallback, (error: any) => {
-      throw new Error(error);
-    });
+      .then(eventRequestCallback, (error: any) => {
+        throw new Error(error);
+      });
 
     return response;
   }
@@ -71,9 +81,9 @@ export class RequestHandler {
   * Sends an activity to the directline channel
   * @returns {Promise<AuthenticationResponse>}
   */
-  async sendActivity(authResponse: AuthenticationResponse, activity: Activity) : Promise<void> {
+  async sendActivity(authResponse: AuthenticationResponse, activity: Activity): Promise<void> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
-    
+
     const authOptions = {
       url: conversationActivityEndpoint,
       headers: {
@@ -97,13 +107,13 @@ export class RequestHandler {
   * Authenticates with directline and creates a conversation with a token that we can use to communicate
   * @returns {Promise<AuthenticationResponse>}
   */
-  async authenticate(directlineSecret: string): Promise<AuthenticationResponse> {
+  async authenticate(): Promise<AuthenticationResponse> {
     let authResponse: AuthenticationResponse = new AuthenticationResponse();
 
     const authOptions = {
       url: constants.Directline.token_endpoint,
       headers: {
-        'Authorization': `Bearer ${directlineSecret}`
+        'Authorization': `Bearer ${this._directlineSecret}`
       }
     };
 
