@@ -1,8 +1,9 @@
-
-
 import commander = require('commander');
 import log = require('npmlog');
 import { Processor } from './processor';
+import { RequestHandler } from './requestHandler';
+import { TranscriptGenerator } from './trancriptGenerator';
+import { ActivityHandler } from './activityHandler';
 
 class App {
     bootstrap() {
@@ -24,8 +25,11 @@ class App {
                     log.level = 'info';
                 }
 
-                var processor = new Processor();
-                await processor.handleTestFile(file, options);
+                var requestHandler = new RequestHandler(options.secret);
+                var activityHandler = new ActivityHandler(requestHandler);
+                var transcriptGenerator = new TranscriptGenerator()
+                var processor = new Processor(activityHandler, transcriptGenerator);
+                await processor.single(file);
             });
 
         commander.parse(process.argv);
