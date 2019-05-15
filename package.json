@@ -8,7 +8,7 @@
     "test-coverage": "nyc mocha --opts mocha.opts",
     "prestart": "npm run build",
     "build": "tsc",
-    "buildserver": "npm run test-coverage && npm run build",
+    "buildserver": "npm run test-coverage",
     "start": "node out/app.js"
   },
   "nyc": {
@@ -27,7 +27,8 @@
     ],
     "reporter": [
       "text-summary",
-      "html"
+      "html",
+      "lcov"
     ],
     "sourceMap": true,
     "instrument": true
@@ -61,6 +62,7 @@
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "chatdown": "^1.2.0",
+    "coveralls": "^3.0.3",
     "istanbul": "^0.4.5",
     "mocha": "^6.1.4",
     "mock-require": "^3.0.3",
