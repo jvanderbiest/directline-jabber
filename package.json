@@ -4,10 +4,33 @@
   "description": "uses chatdown to generate transcript files to automate testing using a directline connection",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha --require node_modules/ts-node/register -w src/**/*.spec.ts --file src/@types/chatdown.ts",
+    "test": "mocha --opts mocha.opts",
+    "test-coverage": "nyc mocha --opts mocha.opts",
     "prestart": "npm run build",
     "build": "tsc",
+    "buildserver": "npm run test-coverage && npm run build",
     "start": "node out/app.js"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "all": true,
+    "exclude": [
+      "src/**/*.spec.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "repository": {
     "type": "git",
@@ -46,6 +69,7 @@
     "read-text-file": "^1.1.0",
     "request": "^2.88.0",
     "sinon": "^7.3.2",
+    "source-map-support": "^0.5.12",
     "ts-node": "^8.1.0"
   },
   "dependencies": {

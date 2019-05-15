@@ -1,5 +1,3 @@
-
-
 import commander = require('commander');
 import log = require('npmlog');
 import { Processor } from './processor';
