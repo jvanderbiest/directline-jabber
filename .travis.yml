@@ -1,10 +1,5 @@
 language: node_js
 node_js:
-- "9"
-
-deploy:
-  provider: script
-  script: "npm run buildserver"
-  skip_cleanup: true
-  on:
-    tags: true
+  - "9"
+script:
+  - npm run buildserver
