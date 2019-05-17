@@ -33,7 +33,7 @@ export class Processor {
             log.error("ERR", `No activities could be found in ${file}`);
         }
         else {
-            this._activityHandler.process(activities);
+            await this._activityHandler.process(activities);
             log.info("success", "Conversation was successful!");
         }
     }

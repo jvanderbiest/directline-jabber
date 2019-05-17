@@ -2,7 +2,7 @@
   "name": "directline-jabber",
   "version": "0.1.0",
   "description": "uses chatdown to generate transcript files to automate testing using a directline connection",
-  "main": "lib/index.js",
+  "main": "out/app.js",
   "scripts": {
     "test": "mocha --opts mocha.opts",
     "test-coverage": "nyc mocha --opts mocha.opts",
