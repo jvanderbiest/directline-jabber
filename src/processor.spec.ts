@@ -3,56 +3,44 @@ import { Processor } from './processor';
 import { ActivityHandler } from './activityHandler';
 import { TranscriptGenerator } from './trancriptGenerator';
 import * as sinon from 'sinon';
-import { Activity, Attachment, ChannelAccount } from 'chatdown-domain';
-// import * as spies from 'chai-spies';
+import { Activity } from 'chatdown-domain';
+import { TestActivity } from './activityHandler.spec';
 
 describe('Processor tests', () => {
-	var processor: Processor;
-	var activityHandlerStub: ActivityHandler;
+	var sut: Processor;
+	var activityHandler: ActivityHandler;
 	var transcriptGenerator: TranscriptGenerator;
-	var transcriptSpy: sinon.SinonSpy<any>;
-	var activityHandlerSpy: sinon.SinonSpy<any>;
+	const baseFile = "c:\\folder\\file.chat";
 
-	before(async () => {
-		activityHandlerStub = sinon.createStubInstance(ActivityHandler);
-		transcriptGenerator = sinon.createStubInstance(TranscriptGenerator);
-		
-		transcriptSpy = sinon.spy(transcriptGenerator.single);
-		activityHandlerSpy = sinon.spy(activityHandlerStub.process);
+	beforeEach(async () => {
+		activityHandler = new ActivityHandler(null)
+		transcriptGenerator = new TranscriptGenerator();
 
-		processor = new Processor(activityHandlerStub, transcriptGenerator)
+		sut = new Processor(activityHandler, transcriptGenerator);
 	});
 
 	describe('single - should process a single file', () => {
 		it('should not process if there are no activities', async () => {
-			transcriptGenerator.single = function () { return null };
+			sinon.stub(transcriptGenerator, "single").resolves(null);
+			sinon.stub(activityHandler, "process");
 
-			processor.single("c:\\folder\\file.chat");
+			await sut.single(baseFile);
 
-			expect(transcriptSpy.calledOnce);
-			expect(activityHandlerSpy.notCalled)
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(baseFile)).to.be.true;
+			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
 		});
 
 		it('should process if there are activities', async () => {
 			var activities = new Array<Activity>();
 			activities.push(new TestActivity())
-			transcriptGenerator.single = function () { return new Promise((resolve) => resolve(activities)); };
 
-			processor.single("c:\\folder\\file.chat");
+			sinon.stub(transcriptGenerator, "single").resolves(activities);
+			sinon.stub(activityHandler, "process");
 
-			expect(transcriptSpy.calledOnce);
-			expect(activityHandlerSpy.calledOnce)
+			await sut.single(baseFile);
+
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(baseFile)).to.be.true;
+			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;
 		});
-	});	
+	});
 });
-
-export class TestActivity implements Activity {
-	attachments: Attachment[];	
-	text: string;
-	timestamp: string;
-	id: number;
-	type: string;
-	from: ChannelAccount;
-	recipient: ChannelAccount;
-	conversation: string;
-}

@@ -15,16 +15,14 @@ export class RequestHandler {
    * @param {string} directlineSecret - The Directline secret that is linked to your Azure bot service directline channel. Used to authenticate with Directline API.
    */
   constructor(directlineSecret: string) {
-    this._directlineSecret = directlineSecret; 
+    this._directlineSecret = directlineSecret;
   }
 
   async getActivityResponse(authResponse: AuthenticationResponse, watermark: number): Promise<Activity[]> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
 
     // watermark indicates the most recent message seen by the client
-    if (watermark != undefined) {
-      conversationActivityEndpoint += `?watermark=${watermark}`;
-    }
+    conversationActivityEndpoint += `?watermark=${watermark}`;
 
     const authOptions = {
       url: conversationActivityEndpoint,

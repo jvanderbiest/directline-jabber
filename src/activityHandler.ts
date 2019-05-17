@@ -2,6 +2,7 @@
 import log = require('npmlog');
 import { Activity } from 'chatdown-domain';
 import { RequestHandler } from './requestHandler';
+import { ActivityTypes, ActivityRoles } from './constants';
 
 /** Handles the complete process to test transcripts with directline */
 export class ActivityHandler {
@@ -26,11 +27,11 @@ export class ActivityHandler {
 
         // do not use foreach with async, it's not supported without modification.
         for (var x of activities) {
-            if (x.type == "conversationUpdate") {
+            if (x.type == ActivityTypes.conversationUpdate) {
                 continue;
             }
 
-            if (x.from.role == "bot") {
+            if (x.from.role == ActivityRoles.bot) {
                 // we will get the replies back from the directline channel to match with the ones of the bot
                 var activityEvents = await this._requestHandler.getActivityResponse(authResponse, watermark);
 
