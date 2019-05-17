@@ -10,12 +10,15 @@ import log = require('npmlog');
 /** Handles http requests */
 export class RequestHandler {
   _directlineSecret: string;
+  _tokenEndpoint: string;
 
   /**
-   * @param {string} directlineSecret - The Directline secret that is linked to your Azure bot service directline channel. Used to authenticate with Directline API.
+   * @param {string} directlineSecret - The Directline secret that is linked to your Azure bot service directline channel. Used to authenticate with the Directline API.
+   * @param {string} tokenEndpoint - An endpoint that uses the directlineSecret to generate a token to communicate with the Directline API.
    */
-  constructor(directlineSecret: string) {
+  constructor(directlineSecret: string, tokenEndpoint: string) {
     this._directlineSecret = directlineSecret;
+    this._tokenEndpoint = tokenEndpoint;
   }
 
   async getActivityResponse(authResponse: AuthenticationResponse, watermark: number): Promise<Activity[]> {
@@ -101,39 +104,29 @@ export class RequestHandler {
       })
   }
 
+
+
+
+
   /**
   * Authenticates with directline and creates a conversation with a token that we can use to communicate
   * @returns {Promise<AuthenticationResponse>}
   */
   async authenticate(): Promise<AuthenticationResponse> {
-    let authResponse: AuthenticationResponse = new AuthenticationResponse();
+    var authResponse: AuthenticationResponse;
 
-    const authOptions = {
-      url: constants.Directline.token_endpoint,
-      headers: {
-        'Authorization': `Bearer ${this._directlineSecret}`
-      }
-    };
-
-    function authRequestCallback(body: any): void {
-      mapResponse(body);
-      log.verbose("auth response", body);
+    if (this._directlineSecret) {
+      authResponse = await this.authenticateUsingSecret();
+    }
+    else {
+      authResponse = await this.authenticateUsingTokenEndpoint();
     }
 
+    var that = this;
     function conversationAuthRequestCallback(body: any): void {
-      mapResponse(body);
+      authResponse = that.mapAuthResponse(body);
       log.verbose("converstation auth response", body);
     }
-
-    function mapResponse(body: any) {
-      const info = JSON.parse(body);
-      authResponse.conversationId = info.conversationId;
-      authResponse.expires_in = info.expires_in;
-      authResponse.token = info.token;
-    }
-
-    await request.post(authOptions)
-      .then(authRequestCallback, (error: any) => { throw new Error(error); })
 
     const conversationAuthOptions = {
       url: constants.Directline.conversation_endpoint,
@@ -144,6 +137,79 @@ export class RequestHandler {
 
     await request.post(conversationAuthOptions)
       .then(conversationAuthRequestCallback, (error: any) => { throw new Error(error); })
+
+    return authResponse;
+  }
+
+  private async authenticateUsingSecret() {
+    let authResponse: AuthenticationResponse = new AuthenticationResponse();
+
+    const authOptions = {
+      url: constants.Directline.token_endpoint,
+      headers: {
+        'Authorization': `Bearer ${this._directlineSecret}`
+      }
+    };
+
+    authResponse = new AuthenticationResponse();
+
+    var that = this;
+    function authRequestCallback(body: any): void {
+      authResponse = that.mapAuthResponse(body);
+      log.verbose("auth response", body);
+    }
+
+    await request.post(authOptions)
+      .then(authRequestCallback, (error: any) => { throw new Error(error); })
+
+    return authResponse;
+  }
+
+  private mapAuthResponse(body: any): AuthenticationResponse {
+    const info = JSON.parse(body);
+    var authResponse = new AuthenticationResponse();
+    authResponse.conversationId = info.conversationId;
+    authResponse.expires_in = info.expires_in;
+    authResponse.token = info.token;
+    return authResponse;
+  }
+
+  private async authenticateUsingTokenEndpoint() {
+    let authResponse: AuthenticationResponse = new AuthenticationResponse();
+
+    const authOptions = {
+      url: this._tokenEndpoint,
+    };
+
+    function authRequestCallback(body: any): void {
+      if (!body) {
+        throw new Error('invalid token response');
+      }
+
+      var token;
+      var response;
+
+      try {
+        response = JSON.parse(body);
+
+        if (response.token) {
+          token = response.token;
+        }
+        else {
+          token = response;
+        }
+      }
+      catch (e) {
+        // recover using string value
+        token = body;
+      }
+
+      authResponse.token = token;
+      log.verbose("token endpoint token response", token);
+    }
+
+    await request.get(authOptions)
+      .then(authRequestCallback, (error: any) => { throw new Error(error); })
 
     return authResponse;
   }

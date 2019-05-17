@@ -7,10 +7,26 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Build Project",
+            "name": "Directline Secret + file",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "c:\\chatdown\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
+                "test", "--file", "c:\\chatdown\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
+             ],
+            "preLaunchTask": "npm: build",
+            "sourceMaps": true,
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Token endpoint + file",
+            "program": "${workspaceFolder}\\src\\app.ts",
+            "args": [
+                "test", "--file", "c:\\chatdown\\azure-bootcamp-demo.chat", "--endpoint", "https:///token", "-v"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,

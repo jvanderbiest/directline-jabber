@@ -9,19 +9,35 @@ The current release 0.1.0 is a beta release and only supports a limited scenario
 # Installation
 DirectLine-Jabber requires [Node.js](https://nodejs.org/) v10+ to run.
 
-Install the dependencies and devDependencies and start the server.
+Install the dependencies and devDependencies and start the app.
 
 ```sh
 $ cd directline-jabber
 $ npm install
-$ node app test <chatdownFilePath> -s [directLineSecret] 
 ```
 
-# Debugging
-You can enable verbose logging by adding a `-v` or `--verbose` argument to the commandline statement
+Run examples:
+```sh
+$ node app test --file <chatdownFilePath> --secret [directLineSecret] 
+$ node app test --folder <chatdownFolderPath> --endpoint [tokenEndpoint] 
+```
 
-# Tests
-Currently there are no tests, this is planned for an upcoming release.
+# Commandline arguments
+| Command | Alias | Description | Remarks
+| --- | --- | --- | --- |
+| `--file` | `-fi` | chatdown file to test | Mutually exclusive with `folder`
+| `--folder` | `-fo` | folder with chatdown files to test | Mutually exclusive with `file`
+| `--secret` | `-s` | directline secret for authentication | Mutually exclusive with `endpoint`
+| `--endpoint` | `-e` | endpoint to retrieve directline token | Mutually exclusive with `secret`
+| `--verbose` | `-v` | enables verbose logging | 
+
+# Authentication
+You could authenticate with DirectLine using the directline secert that can be found in your bot registration DirectLine channel on Azure. Or if you already have a [token endpoint](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-authentication?view=azure-bot-service-4.0) that generates a token from the directlineSecret you could also use that. The returned response should be a token object, a token string or a stringified token string.
+
+# Testing
+```sh
+$ npm test
+```
 
 # Sample
 ![DirectLine-Jabber Chatdown example](/docs/screenshots/chatdown-conversation.png?raw=true "Chatdown conversation")

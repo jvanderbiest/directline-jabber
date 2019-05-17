@@ -10,7 +10,7 @@ describe('Activity handler tests', () => {
 	var requestHandler: RequestHandler;
 
 	beforeEach(async () => {
-		requestHandler = new RequestHandler("directlineSecret");
+		requestHandler = new RequestHandler(null, null);
 		sinon.stub(requestHandler, "authenticate").resolves(null);
 
 		sut = new ActivityHandler(requestHandler);
