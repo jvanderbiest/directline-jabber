@@ -10,7 +10,7 @@
             "name": "Directline Secret + file",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--file", "c:\\chatdown\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
+                "test", "--files", "c:\\chatdown\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -23,10 +23,26 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Token endpoint + file",
+            "name": "Token endpoint + files",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--file", "c:\\chatdown\\azure-bootcamp-demo.chat", "--endpoint", "https:///token", "-v"
+                "test", "--files", "c:\\chatdown\\staging.chat,c:\\chatdown\\staging.chat", "--endpoint", "https:///token", "-v"
+             ],
+            "preLaunchTask": "npm: build",
+            "sourceMaps": true,
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Token endpoint + folders",
+            "program": "${workspaceFolder}\\src\\app.ts",
+            "args": [
+                "test", "--folders", "c:\\chat-tests", "--endpoint", "https:///token", "-v", "--includeSubfolders"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -55,5 +71,6 @@
             "internalConsoleOptions": "neverOpen",
             "protocol": "inspector"
         }
+        
     ]
 }

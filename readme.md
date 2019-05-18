@@ -25,14 +25,15 @@ $ node app test --folder <chatdownFolderPath> --endpoint [tokenEndpoint]
 # Commandline arguments
 | Command | Alias | Description | Remarks
 | --- | --- | --- | --- |
-| `--file` | `-fi` | chatdown file to test | Mutually exclusive with `folder`
-| `--folder` | `-fo` | folder with chatdown files to test | Mutually exclusive with `file`
+| `--files` | `-fi` | chatdown file(s) to test. | Comma seperate for multiple
+| `--folders` | `-fo` | folder(s) with chatdown files to test | Comma seperate for multiple
 | `--secret` | `-s` | directline secret for authentication | Mutually exclusive with `endpoint`
 | `--endpoint` | `-e` | endpoint to retrieve directline token | Mutually exclusive with `secret`
-| `--verbose` | `-v` | enables verbose logging | 
+| `--includeSubfolders` | `-isfo` | includes subfolders when scanning for chatdown files' | defaults to `true`
+| `--verbose` | `-v` | enables verbose logging | defaults to `false`
 
 # Authentication
-You could authenticate with DirectLine using the directline secert that can be found in your bot registration DirectLine channel on Azure. Or if you already have a [token endpoint](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-authentication?view=azure-bot-service-4.0) that generates a token from the directlineSecret you could also use that. The returned response should be a token object, a token string or a stringified token string.
+You could authenticate with DirectLine using the directline secret that can be found in your bot registration DirectLine channel on Azure. Or if you already have a [token endpoint](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-authentication?view=azure-bot-service-4.0) that generates a token from the directlineSecret you could also use that. The returned response should be a token object, a token string or a stringified token string.
 
 # Testing
 ```sh

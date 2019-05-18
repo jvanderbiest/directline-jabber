@@ -125,7 +125,7 @@ export class RequestHandler {
     var that = this;
     function conversationAuthRequestCallback(body: any): void {
       authResponse = that.mapAuthResponse(body);
-      log.verbose("converstation auth response", body);
+      log.verbose("conversation auth response", body);
     }
 
     const conversationAuthOptions = {

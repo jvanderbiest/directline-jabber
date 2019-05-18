@@ -24,7 +24,7 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(null);
 			sinon.stub(activityHandler, "process");
 
-			await sut.single(baseFile);
+			await sut.start(Array<string>(baseFile), null, false);
 
 			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(baseFile)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
@@ -37,7 +37,7 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");
 
-			await sut.single(baseFile);
+			await sut.start(Array<string>(baseFile), null, false);
 
 			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(baseFile)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;

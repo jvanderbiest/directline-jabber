@@ -21,7 +21,7 @@ export class ActivityHandler {
       *
       * @param {Activity[]} activities - An array of transcribed activities
       */
-    async process(activities: Activity[]) {
+    async process(activities: Activity[]) : Promise<void> {
         var authResponse = await this._requestHandler.authenticate();
         var watermark = 0;
 
