@@ -42,7 +42,7 @@
             "name": "Token endpoint + folders",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--folders", "c:\\chat-tests", "--endpoint", "https:///token", "-v", "--includeSubfolders"
+                "test", "--dirs", "c:\\chat-tests", "--endpoint", "https:///token", "-v", "-r"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,

@@ -4,7 +4,7 @@
 DirectLine-Jabber is a testing tool that communicates over the [DirectLine channel](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-directline?view=azure-bot-service-4.0) to test your Microsoft BotFramework transcripts.
 This node.js application, written in typescript, reads your [Chatdown](https://github.com/Microsoft/botbuilder-tools/tree/master/packages/Chatdown) conversation file and sends all chat activity to DirectLine. It will try to match the expected text of the bot with the one in the conversation file. 
 
-The current release 0.1.0 is a beta release and only supports a limited scenario.
+The current release 1.0.0 supports a limited scenario with text and attachments only. Other scenario's with adaptive cards are scheduled for a later release.
 
 # Installation
 DirectLine-Jabber requires [Node.js](https://nodejs.org/) v10+ to run.
@@ -18,18 +18,18 @@ $ npm install
 
 Run examples:
 ```sh
-$ node app test --file <chatdownFilePath> --secret [directLineSecret] 
-$ node app test --folder <chatdownFolderPath> --endpoint [tokenEndpoint] 
+$ node app test --files <chatdownFilePath(s)> --secret [directLineSecret] 
+$ node app test --folders <chatdownFolderPath(s)> --endpoint [tokenEndpoint] 
 ```
 
 # Commandline arguments
-| Command | Alias | Description | Remarks
+| Command | Flag | Description | Remarks
 | --- | --- | --- | --- |
-| `--files` | `-fi` | chatdown file(s) to test. | Comma seperate for multiple
-| `--folders` | `-fo` | folder(s) with chatdown files to test | Comma seperate for multiple
+| `--files` | `-f` | chatdown file(s) to test. | Comma seperate for multiple
+| `--dirs` | `-d` | directory or directories with chatdown files to test | Comma seperate for multiple
 | `--secret` | `-s` | directline secret for authentication | Mutually exclusive with `endpoint`
 | `--endpoint` | `-e` | endpoint to retrieve directline token | Mutually exclusive with `secret`
-| `--includeSubfolders` | `-isfo` | includes subfolders when scanning for chatdown files' | defaults to `true`
+| `--recursive` | `-r` | recursivly scanning for chatdown files in directory' | defaults to `true`
 | `--verbose` | `-v` | enables verbose logging | defaults to `false`
 
 # Authentication
