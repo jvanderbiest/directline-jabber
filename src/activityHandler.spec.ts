@@ -1,9 +1,11 @@
 import { expect, assert } from 'chai';
 import { ActivityHandler } from './activityHandler';
 import * as sinon from 'sinon';
-import { Activity, Attachment, ChannelAccount } from 'chatdown-domain';
+import { Activity} from 'chatdown-domain';
 import { RequestHandler } from './requestHandler';
 import { ActivityTypes, ActivityRoles } from './constants';
+import { JabberActivity } from './domain/jabberActivity';
+import { JabberAttachment } from './domain/jabberAttachment';
 
 describe('Activity handler tests', () => {
 	var sut: ActivityHandler;
@@ -19,7 +21,7 @@ describe('Activity handler tests', () => {
 	describe('process', () => {
 		it('should ignore conversationUpdate activities', async () => {
 			var activities = new Array<Activity>();
-			var conversationActivity = new TestActivity();
+			var conversationActivity = new JabberActivity();
 			conversationActivity.type = ActivityTypes.conversationUpdate;
 			activities.push(conversationActivity);
 			activities.push(conversationActivity);
@@ -36,14 +38,14 @@ describe('Activity handler tests', () => {
 			var expectedText = "this is what the bot should reply";
 
 			var serverActivities = new Array<Activity>();
-			var serverActivity = new TestActivity();
+			var serverActivity = new JabberActivity();
 			serverActivity.text = expectedText;
 			serverActivities.push(serverActivity);
 
 			sinon.stub(requestHandler, "getActivityResponse").resolves(serverActivities);
 
 			var activities = new Array<Activity>();
-			var botActivity = new TestActivity();
+			var botActivity = new JabberActivity();
 			botActivity.from.role = ActivityRoles.bot;
 			botActivity.text = expectedText;
 			activities.push(botActivity);
@@ -59,7 +61,7 @@ describe('Activity handler tests', () => {
 
 		it('should throw an error when the bot message does not match our expected message', async () => {
 			var serverActivities = new Array<Activity>();
-			var serverActivity = new TestActivity();
+			var serverActivity = new JabberActivity();
 			serverActivity.text = "this is what the bot should NOT reply";
 			serverActivities.push(serverActivity);
 
@@ -67,7 +69,7 @@ describe('Activity handler tests', () => {
 			sinon.stub(requestHandler, "sendActivity");
 
 			var activities = new Array<Activity>();
-			var botActivity = new TestActivity();
+			var botActivity = new JabberActivity();
 			botActivity.from.role = ActivityRoles.bot;
 			botActivity.text = "this is what the bot should reply";
 			activities.push(botActivity);
@@ -83,7 +85,7 @@ describe('Activity handler tests', () => {
 
 		it('should send a server activity when we have user input', async () => {
 			var activities = new Array<Activity>();
-			var userActivity = new TestActivity();
+			var userActivity = new JabberActivity();
 			userActivity.from.role = ActivityRoles.user;
 			activities.push(userActivity);
 			
@@ -100,13 +102,13 @@ describe('Activity handler tests', () => {
 		it('should increase the watermark when the user sends an attachment', async () => {
 			var activities = new Array<Activity>();
 
-			var userActivity = new TestActivity();
+			var userActivity = new JabberActivity();
 			userActivity.from.role = ActivityRoles.user;
-			userActivity.attachments = new Array<TestAttachment>();
-			userActivity.attachments.push(new TestAttachment());
+			userActivity.attachments = new Array<JabberAttachment>();
+			userActivity.attachments.push(new JabberAttachment());
 			activities.push(userActivity);
 
-			var botActivity = new TestActivity();
+			var botActivity = new JabberActivity();
 			botActivity.from.role = ActivityRoles.bot;
 			botActivity.text = "this is what the bot should reply";
 			activities.push(botActivity);
@@ -124,32 +126,3 @@ describe('Activity handler tests', () => {
 		});
 	});
 });
-
-
-
-export class TestAttachment implements Attachment {
-	contentType: string;
-	contentUrl: string;
-	content: string;
-}
-
-export class TestChannelAccount implements ChannelAccount {
-	id: string; name: string;
-	role: string;
-}
-
-export class TestActivity implements Activity {
-	constructor() {
-		this.from = new TestChannelAccount();
-		this.recipient = new TestChannelAccount();
-	}
-
-	attachments: Attachment[];
-	text: string;
-	timestamp: string;
-	id: number;
-	type: string;
-	from: ChannelAccount;
-	recipient: ChannelAccount;
-	conversation: string;
-}

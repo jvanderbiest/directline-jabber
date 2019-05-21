@@ -27,10 +27,7 @@ export class ActivityHandler {
 
         // do not use foreach with async, it's not supported without modification.
         for (var x of activities) {
-            if (x.type == ActivityTypes.conversationUpdate) {
-                continue;
-            }
-
+            
             if (x.from.role == ActivityRoles.bot) {
                 // we will get the replies back from the directline channel to match with the ones of the bot
                 var activityEvents = await this._requestHandler.getActivityResponse(authResponse, watermark);

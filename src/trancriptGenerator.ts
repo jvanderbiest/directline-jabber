@@ -1,9 +1,12 @@
 
 
 import path = require('path');
-import chalk = require('chalk');
 import chatdown from 'chatdown';
-import { Activity } from 'chatdown-domain';
+import { Activity, ChannelAccount } from 'chatdown-domain';
+import { FileInfo } from './domain/fileInfo';
+import { Extensions } from './constants';
+import { JabberActivity } from './domain/jabberActivity';
+
 var fs = require('fs');
 
 /**
@@ -11,27 +14,38 @@ var fs = require('fs');
  */
 export class TranscriptGenerator {
 
-/**
-  * Generates a transcript for a single file
-  *
-  * @param {string} file - The filepath of the .chat file
-  * @return {Promise<Activity[]} A promise with an array of activities that got generated
-  *
-  * @example
-  *
-  *     single('c:\folder\file.chat')
-  */
+  /**
+    * Generates a transcript for a single file
+    *
+    * @param {string} file - The filepath of the .chat file
+    * @return {Promise<Activity[]} A promise with an array of activities that got generated
+    *
+    * @example
+    *
+    *     single('c:\folder\file.chat')
+    */
 
-  async single(file: string): Promise<Activity[]> {
-    // var fileContents = txtfile.readSync(path.resolve(file));
-    var fileContents = fs.readFileSync(path.resolve(file), 'utf8');
-    var args = { in: file };
+  async single(file: FileInfo): Promise<Activity[]> {
+    var fileContents = fs.readFileSync(path.resolve(file.path), 'utf8');
+    var activities: Activity[] = new Array<Activity>();
 
-    var activities: Activity[];
-    await chatdown(fileContents, args).then((fileActivities: Activity[]) => {
-      activities = fileActivities;
-    });
+    if (file.extension == Extensions.chatdown) {
+      var args = { in: file };
+      await chatdown(fileContents, args).then((fileActivities: Activity[]) => {
+        activities = fileActivities;
+      });
+    }
+    else if (file.extension == Extensions.transcript) {
+      var jsonActivities = JSON.parse(fileContents);
+
+      if (Array.isArray(jsonActivities)) {
+        for (var activity of jsonActivities) {
+          activities.push(new JabberActivity().parse(activity))
+        }
+      }
+    }
 
     return activities;
   }
 }
+

@@ -19,6 +19,13 @@ export class FileInfo {
     path: string;
 
     /**
+     * Retrieves the extension of the file
+     */
+    get extension() : string {
+        return path.extname(this.path);
+    }
+
+    /**
      * Retrieves folder of the current file
      * 
      * @return {string} The folder of the file

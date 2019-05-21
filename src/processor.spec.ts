@@ -4,7 +4,7 @@ import { ActivityHandler } from './activityHandler';
 import { TranscriptGenerator } from './trancriptGenerator';
 import * as sinon from 'sinon';
 import { Activity } from 'chatdown-domain';
-import { TestActivity } from './activityHandler.spec';
+import { JabberActivity } from './domain/jabberActivity';
 
 describe('Processor tests', () => {
 	var sut: Processor;
@@ -32,7 +32,7 @@ describe('Processor tests', () => {
 
 		it('should process if there are activities', async () => {
 			var activities = new Array<Activity>();
-			activities.push(new TestActivity())
+			activities.push(new JabberActivity())
 
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");

@@ -4,6 +4,7 @@ import log = require('npmlog');
 import { ActivityHandler } from './activityHandler';
 import { Stats } from './stats';
 import { FileInfo } from './domain/fileInfo';
+import { Extensions } from './constants';
 var readdirp = require('readdirp');
 
 /** Handles the complete process to test transcripts with directline */
@@ -48,8 +49,17 @@ export class Processor {
 
         if (folders && folders.length > 0) {
             for (var folder of folders) {
-                const files = await readdirp.promise(folder, { fileFilter: '*.chat', depth: includeSubFolders ? 15 : 0 });
-                files.map((file : any) => filesToProcess.push(new FileInfo(file.fullPath)));
+                const files = await readdirp.promise(folder, { depth: includeSubFolders ? 15 : 0 });
+                files.map((file: any) => filesToProcess.push(new FileInfo(file.fullPath)));
+            }
+        }
+
+        // remove and warn for invalid files
+        for (var i = filesToProcess.length - 1; i >= 0; i--) {
+            var ext = filesToProcess[i].extension;
+            if (ext !== Extensions.transcript && ext !== Extensions.transcript) {
+                log.warn("WRN", `${filesToProcess[i].path} has an unknown extension and will be skipped. Only '*${Extensions.transcript}' and '*.${Extensions.chatdown}' are recognized`);
+                filesToProcess.splice(i, 1);
             }
         }
 
@@ -66,7 +76,7 @@ export class Processor {
         this._stats.beginTest();
 
         log.verbose("FILE", `Loading file ${file}`);
-        var activities = await this._transcriptGenerator.single(file.path);
+        var activities = await this._transcriptGenerator.single(file);
 
         if (!activities || activities.length <= 0) {
             log.warn("WRN", `No activities could be found in ${file.path}`);

@@ -3,8 +3,8 @@ import { Activity } from 'chatdown-domain';
 import { RequestHandler } from './requestHandler';
 import { Directline } from './constants';
 import { AuthenticationResponse } from './domain/responses/authenticationResponse';
-import { TestActivity } from './activityHandler.spec';
 import { EventActivityRequest } from './domain/requests/eventActivityRequest';
+import { JabberActivity } from './domain/jabberActivity';
 const nock = require('nock')
 
 describe('Request handler tests', () => {
@@ -20,7 +20,7 @@ describe('Request handler tests', () => {
 			authResponse.expires_in = 1234;
 			authResponse.token = "token";
 
-			var testActivity = new TestActivity();
+			var testActivity = new JabberActivity();
 
 			nock(`${Directline.conversation_endpoint}/${authResponse.conversationId}`)
 				.post(`/activities`, testActivity)
@@ -60,7 +60,7 @@ describe('Request handler tests', () => {
 			authResponse.token = "token";
 
 			var activities = new Array<Activity>();
-			var testActivity = new TestActivity();
+			var testActivity = new JabberActivity();
 			activities.push(testActivity);
 
 			nock(`${Directline.conversation_endpoint}/${authResponse.conversationId}`)
