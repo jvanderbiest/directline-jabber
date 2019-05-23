@@ -2,7 +2,7 @@ import commander = require('commander');
 import log = require('npmlog');
 import { Processor } from './processor';
 import { RequestHandler } from './requestHandler';
-import { TranscriptGenerator } from './trancriptGenerator';
+import { TranscriptGenerator } from './transcriptGenerator';
 import { ActivityHandler } from './activityHandler';
 import { resolve } from 'bluebird';
 

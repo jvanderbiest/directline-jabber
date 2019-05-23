@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { FileInfo } from '../domain/fileInfo';
-import { TranscriptGenerator } from '../trancriptGenerator';
+import { TranscriptGenerator } from '../transcriptGenerator';
 import { FileSeedHelper } from './helpers/fileSeedHelper';
 import { ActivityTypes } from '../constants';
 var proxyquire = require('proxyquire');
@@ -10,7 +10,7 @@ describe('Transcript generator tests', () => {
 	var sut : TranscriptGenerator;
 
 	beforeEach(async () => {
-		var proxyQuire = proxyquire('../src/trancriptGenerator', { 'fs': fsStub });
+		var proxyQuire = proxyquire('../transcriptGenerator', { 'fs': fsStub });
 		
 		
 		sut = new proxyQuire.TranscriptGenerator();

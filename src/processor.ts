@@ -1,4 +1,4 @@
-import { TranscriptGenerator } from './trancriptGenerator';
+import { TranscriptGenerator } from './transcriptGenerator';
 import { RequestHandler } from './requestHandler';
 import log = require('npmlog');
 import { ActivityHandler } from './activityHandler';

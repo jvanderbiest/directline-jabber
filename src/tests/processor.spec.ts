@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Processor } from '../processor';
 import { ActivityHandler } from '../activityHandler';
-import { TranscriptGenerator } from '../trancriptGenerator';
+import { TranscriptGenerator } from '../transcriptGenerator';
 import * as sinon from 'sinon';
 import { Activity } from 'chatdown-domain';
 import { JabberActivity } from '../domain/jabberActivity';
