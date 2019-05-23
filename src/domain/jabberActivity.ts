@@ -15,7 +15,9 @@ export class JabberActivity implements Activity {
 
     parse(activity: any): JabberActivity {
         if (!activity) { return; }
+        
         if (activity.attachments) {
+            this.attachments = new Array<JabberAttachment>();
             for (var attachment of activity.attachments) {
                 this.attachments.push(new JabberAttachment().parse(attachment));
             }

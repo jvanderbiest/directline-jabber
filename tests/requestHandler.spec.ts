@@ -1,10 +1,10 @@
 import { expect, assert } from 'chai';
 import { Activity } from 'chatdown-domain';
-import { RequestHandler } from './requestHandler';
-import { Directline } from './constants';
-import { AuthenticationResponse } from './domain/responses/authenticationResponse';
-import { EventActivityRequest } from './domain/requests/eventActivityRequest';
-import { JabberActivity } from './domain/jabberActivity';
+import { RequestHandler } from '../src/requestHandler';
+import { Directline } from '../src/constants';
+import { AuthenticationResponse } from '../src/domain/responses/authenticationResponse';
+import { EventActivityRequest } from '../src/domain/requests/eventActivityRequest';
+import { JabberActivity } from '../src/domain/jabberActivity';
 const nock = require('nock')
 
 describe('Request handler tests', () => {

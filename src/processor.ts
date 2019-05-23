@@ -57,8 +57,8 @@ export class Processor {
         // remove and warn for invalid files
         for (var i = filesToProcess.length - 1; i >= 0; i--) {
             var ext = filesToProcess[i].extension;
-            if (ext !== Extensions.transcript && ext !== Extensions.transcript) {
-                log.warn("WRN", `${filesToProcess[i].path} has an unknown extension and will be skipped. Only '*${Extensions.transcript}' and '*.${Extensions.chatdown}' are recognized`);
+            if (ext !== Extensions.transcript && ext !== Extensions.chatdown) {
+                log.warn("WRN", `${filesToProcess[i].path} has an unknown extension and will be skipped. Only '*${Extensions.transcript}' and '*${Extensions.chatdown}' are recognized`);
                 filesToProcess.splice(i, 1);
             }
         }

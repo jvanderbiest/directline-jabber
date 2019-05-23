@@ -26,7 +26,7 @@
             "name": "Token endpoint + files",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--files", "c:\\chatdown\\staging.chat,c:\\chatdown\\staging.chat", "--endpoint", "https:///token", "-v"
+                "test", "--files", "c:\\chatdown\\staging.chat,c:\\chatdown\\staging.chat", "--endpoint", "https://", "-v"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -42,7 +42,7 @@
             "name": "Token endpoint + folders",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--dirs", "c:\\chat-tests", "--endpoint", "https:///token", "-v", "-r"
+                "test", "--dirs", "c:\\chat-tests", "--endpoint", "https://", "-v", "-r"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -65,7 +65,7 @@
                 "--timeout",
                 "999999",
                 "--colors",
-                "${workspaceFolder}/src/**/*.spec.ts"
+                "${workspaceFolder}/tests/**/*.spec.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",

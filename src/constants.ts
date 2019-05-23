@@ -5,6 +5,7 @@ export class Directline {
 
 export class ActivityTypes {
   public static readonly conversationUpdate = 'conversationUpdate';
+  public static readonly typing = 'typing';
 }
 
 export class ActivityRoles {

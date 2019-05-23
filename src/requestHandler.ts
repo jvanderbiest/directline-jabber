@@ -21,11 +21,13 @@ export class RequestHandler {
     this._tokenEndpoint = tokenEndpoint;
   }
 
-  async getActivityResponse(authResponse: AuthenticationResponse, watermark: number): Promise<Activity[]> {
+  async getActivityResponse(authResponse: AuthenticationResponse, watermark?: number): Promise<Activity[]> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
 
     // watermark indicates the most recent message seen by the client
-    conversationActivityEndpoint += `?watermark=${watermark}`;
+    if (watermark) {
+      conversationActivityEndpoint += `?watermark=${watermark}`;
+    }
 
     const authOptions = {
       url: conversationActivityEndpoint,

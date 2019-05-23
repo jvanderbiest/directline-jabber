@@ -1,10 +1,11 @@
 import { expect } from 'chai';
-import { Processor } from './processor';
-import { ActivityHandler } from './activityHandler';
-import { TranscriptGenerator } from './trancriptGenerator';
+import { Processor } from '../src/processor';
+import { ActivityHandler } from '../src/activityHandler';
+import { TranscriptGenerator } from '../src/trancriptGenerator';
 import * as sinon from 'sinon';
 import { Activity } from 'chatdown-domain';
-import { JabberActivity } from './domain/jabberActivity';
+import { JabberActivity } from '../src/domain/jabberActivity';
+import { FileInfo } from '../src/domain/fileInfo';
 
 describe('Processor tests', () => {
 	var sut: Processor;
@@ -26,7 +27,7 @@ describe('Processor tests', () => {
 
 			await sut.start(Array<string>(baseFile), null, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(baseFile)).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
 		});
 
@@ -39,7 +40,7 @@ describe('Processor tests', () => {
 
 			await sut.start(Array<string>(baseFile), null, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(baseFile)).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;
 		});
 	});
