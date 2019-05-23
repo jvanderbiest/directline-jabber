@@ -1,17 +1,8 @@
-import { expect, assert } from 'chai';
-import { ActivityHandler } from '../src/activityHandler';
-import * as sinon from 'sinon';
-import { Activity } from 'chatdown-domain';
-import { RequestHandler } from '../src/requestHandler';
-import { ActivityHelper } from './helpers/activityHelper';
-
-import { FileInfo } from '../src/domain/fileInfo';
-import rewiremock from 'rewiremock';
-import { ImportMock, MockManager } from 'ts-mock-imports';
-import * as fsModule from 'fs';
-import { TranscriptGenerator } from '../src/trancriptGenerator';
+import { expect } from 'chai';
+import { FileInfo } from '../domain/fileInfo';
+import { TranscriptGenerator } from '../trancriptGenerator';
 import { FileSeedHelper } from './helpers/fileSeedHelper';
-import { ActivityTypes } from '../src/constants';
+import { ActivityTypes } from '../constants';
 var proxyquire = require('proxyquire');
 
 describe('Transcript generator tests', () => {

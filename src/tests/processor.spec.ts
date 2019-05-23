@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { Processor } from '../src/processor';
-import { ActivityHandler } from '../src/activityHandler';
-import { TranscriptGenerator } from '../src/trancriptGenerator';
+import { Processor } from '../processor';
+import { ActivityHandler } from '../activityHandler';
+import { TranscriptGenerator } from '../trancriptGenerator';
 import * as sinon from 'sinon';
 import { Activity } from 'chatdown-domain';
-import { JabberActivity } from '../src/domain/jabberActivity';
-import { FileInfo } from '../src/domain/fileInfo';
+import { JabberActivity } from '../domain/jabberActivity';
+import { FileInfo } from '../domain/fileInfo';
 
 describe('Processor tests', () => {
 	var sut: Processor;

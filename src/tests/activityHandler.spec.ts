@@ -1,8 +1,8 @@
 import { expect, assert } from 'chai';
-import { ActivityHandler } from '../src/activityHandler';
+import { ActivityHandler } from '../activityHandler';
 import * as sinon from 'sinon';
 import { Activity } from 'chatdown-domain';
-import { RequestHandler } from '../src/requestHandler';
+import { RequestHandler } from '../requestHandler';
 import { ActivityHelper } from './helpers/activityHelper';
 
 describe('Activity handler tests', () => {

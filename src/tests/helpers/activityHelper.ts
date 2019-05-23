@@ -1,6 +1,6 @@
-import { JabberChannelAccount } from "../../src/domain/jabberChannelAccount";
-import { ActivityRoles } from "../../src/constants";
-import { JabberActivity } from "../../src/domain/jabberActivity";
+import { JabberChannelAccount } from "../../domain/jabberChannelAccount";
+import { ActivityRoles } from "../../constants";
+import { JabberActivity } from "../../domain/jabberActivity";
 
 export class ActivityHelper {
     static generateBotRole(): JabberChannelAccount {
