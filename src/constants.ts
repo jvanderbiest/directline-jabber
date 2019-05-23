@@ -5,6 +5,7 @@ export class Directline {
 
 export class ActivityTypes {
   public static readonly conversationUpdate = 'conversationUpdate';
+  public static readonly typing = 'typing';
 }
 
 export class ActivityRoles {
@@ -12,3 +13,7 @@ export class ActivityRoles {
   public static readonly user = "user";
 }
 
+export class Extensions {
+  public static readonly chatdown = '.chat';
+  public static readonly transcript = '.transcript';
+}
