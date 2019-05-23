@@ -2,6 +2,7 @@
 import log = require('npmlog');
 import { Activity } from 'chatdown-domain';
 import { RequestHandler } from './requestHandler';
+import { ActivityRoles } from './constants';
 
 /** Handles the complete process to test transcripts with directline */
 export class ActivityHandler {
