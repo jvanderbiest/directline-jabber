@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.com/jvanderbiest/directline-jabber.svg?branch=master)](https://travis-ci.com/jvanderbiest/directline-jabber) [![Coverage Status](https://coveralls.io/repos/github/jvanderbiest/directline-jabber/badge.svg?branch=master)](https://coveralls.io/github/jvanderbiest/directline-jabber?branch=master)
+[!npm](https://img.shields.io/npm/v/directline-jabber.svg) [![Build Status](https://travis-ci.com/jvanderbiest/directline-jabber.svg?branch=master)](https://travis-ci.com/jvanderbiest/directline-jabber) [![Coverage Status](https://coveralls.io/repos/github/jvanderbiest/directline-jabber/badge.svg?branch=master)](https://coveralls.io/github/jvanderbiest/directline-jabber?branch=master)
+
 
 # DirectLine Jabber
 DirectLine-Jabber focusses on automated integration testing for the [Microsoft BotFramework](https://github.com/microsoft/botframework-sdk). Using your [BotFramework emulator](https://github.com/microsoft/BotFramework-Emulator) transcripts or [Chatdown](https://github.com/Microsoft/botbuilder-tools/tree/master/packages/Chatdown) files it will check if your bot responds as it is supposed to respond.
