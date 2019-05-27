@@ -1,6 +1,6 @@
 {
   "name": "directline-jabber",
-  "version": "1.0.0",
+  "version": "1.0.1-rc3",
   "description": "uses chatdown to generate transcript files to automate testing using a directline connection",
   "main": "out/processor.js",
   "scripts": {
@@ -62,31 +62,31 @@
     "@types/sinon": "^7.0.11",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
-    "chatdown": "^1.2.0",
     "coveralls": "^3.0.3",
     "istanbul": "^0.4.5",
     "mocha": "^6.1.4",
     "nock": "^10.0.6",
     "nyc": "^14.1.1",
-    "path": "^0.12.7",
     "proxyquire": "^2.1.0",
     "read-text-file": "^1.1.0",
-    "request": "^2.88.0",
     "sinon": "^7.3.2",
     "source-map-support": "^0.5.12",
-    "ts-node": "^8.1.0"
+    "ts-node": "^8.1.0",
+    "ts-node-dev": "^1.0.0-pre.32"
   },
   "dependencies": {
     "@types/node": "^11.13.7",
     "@types/request": "^2.48.1",
     "@types/request-promise": "^4.1.42",
     "chalk": "^2.4.2",
+    "chatdown": "^1.2.0",
     "commander": "^2.20.0",
     "npmlog": "^4.1.2",
+    "path": "^0.12.7",
     "readdirp": "^3.0.1",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.4.4"
   }
 }

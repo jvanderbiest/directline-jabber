@@ -12,7 +12,6 @@ describe('Transcript generator tests', () => {
 	beforeEach(async () => {
 		var proxyQuire = proxyquire('../transcriptGenerator', { 'fs': fsStub });
 		
-		
 		sut = new proxyQuire.TranscriptGenerator();
 	});
 

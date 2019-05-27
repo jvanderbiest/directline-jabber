@@ -1,10 +1,10 @@
 import { TranscriptGenerator } from './transcriptGenerator';
 import { RequestHandler } from './requestHandler';
-import log = require('npmlog');
 import { ActivityHandler } from './activityHandler';
 import { Stats } from './stats';
 import { FileInfo } from './domain/fileInfo';
 import { Extensions } from './constants';
+import log = require('npmlog');
 var readdirp = require('readdirp');
 
 /** Handles the complete process to test transcripts with directline */
@@ -88,4 +88,4 @@ export class Processor {
     }
 }
 
-module.exports = { Processor: Processor };
+module.exports = { Processor: Processor, ActivityHandler: ActivityHandler, RequestHandler: RequestHandler, TranscriptGenerator: TranscriptGenerator };
