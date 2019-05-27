@@ -1,9 +1,0 @@
-user=user
-bot=bootcampbot
-
-user: Hi, can I register for an event?
-bot: Sure, you can register here, please upload a profile picture
-user: [Attachment=https://www.biography.com/.image/t_share/MTQwMjY3NjQ0OTcxMzk0Mjgx/gettyimages-168582304jpg.jpg]
-bot: Is this you or is this Britney Spears smiling for the camera? Please upload another picture.
-user: [Attachment=https://i.ytimg.com/vi/fWoVtiHjBqs/maxresdefault.jpg]
-bot: Thank you hipster, always nice to see a close up of a man who is smiling and looking at the camera! Let's continue the registration process!
