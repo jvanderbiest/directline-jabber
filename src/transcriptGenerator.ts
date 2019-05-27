@@ -2,7 +2,7 @@
 
 import path = require('path');
 import chatdown from 'chatdown';
-import { Activity, ChannelAccount } from 'chatdown-domain';
+import { Activity } from 'chatdown-domain';
 import { FileInfo } from './domain/fileInfo';
 import { Extensions, ActivityTypes } from './constants';
 import { JabberActivity } from './domain/jabberActivity';
@@ -48,3 +48,5 @@ export class TranscriptGenerator {
     return activities;
   }
 }
+
+module.exports = { TranscriptGenerator : TranscriptGenerator };

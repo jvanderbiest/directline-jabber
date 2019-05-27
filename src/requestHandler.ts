@@ -106,10 +106,6 @@ export class RequestHandler {
       })
   }
 
-
-
-
-
   /**
   * Authenticates with directline and creates a conversation with a token that we can use to communicate
   * @returns {Promise<AuthenticationResponse>}
@@ -216,3 +212,5 @@ export class RequestHandler {
     return authResponse;
   }
 }
+
+module.exports = { RequestHandler: RequestHandler };

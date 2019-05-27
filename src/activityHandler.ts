@@ -61,3 +61,5 @@ export class ActivityHandler {
         }
     }
 }
+
+module.exports = { ActivityHandler : ActivityHandler };

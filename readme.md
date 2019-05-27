@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/directline-jabber.svg) [![Build Status](https://travis-ci.com/jvanderbiest/directline-jabber.svg?branch=master)](https://travis-ci.com/jvanderbiest/directline-jabber) [![Coverage Status](https://coveralls.io/repos/github/jvanderbiest/directline-jabber/badge.svg?branch=master)](https://coveralls.io/github/jvanderbiest/directline-jabber?branch=master)
+[![npm](https://img.shields.io/npm/v/directline-jabber.svg)](https://www.npmjs.com/package/directline-jabber) [![Build Status](https://travis-ci.com/jvanderbiest/directline-jabber.svg?branch=master)](https://travis-ci.com/jvanderbiest/directline-jabber) [![Coverage Status](https://coveralls.io/repos/github/jvanderbiest/directline-jabber/badge.svg?branch=master)](https://coveralls.io/github/jvanderbiest/directline-jabber?branch=master)
 
 
 # DirectLine Jabber
@@ -6,7 +6,7 @@ DirectLine-Jabber focusses on automated integration testing for the [Microsoft B
 
 It tests your conversations by authenticating and sending the activities over [Direct Line]((https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-directline?view=azure-bot-service-4.0)). 
 
-The current release 1.0.0 supports a limited scenario with text and attachments only. Other scenario's with adaptive cards are scheduled for a later release.
+The current release 1.0.0 supports a limited scenario with text only. Other scenario's with adaptive cards are scheduled for a later release.
 
 # Prerequisites
 - [node.js](https://nodejs.org/) v10+
@@ -50,7 +50,7 @@ $ npm test
 ```
 
 # Sample
-![DirectLine-Jabber Chatdown example](/docs/screenshots/chatdown-conversation.png?raw=true "Chatdown conversation")
+![DirectLine-Jabber Chatdown example](/docs/screenshots/conversation.png?raw=true "Chatdown conversation")
 ![DirectLine-Jabber in action](/docs/screenshots/cmd-directline-jabber.png?raw=true "Command Line")
 
 # License
