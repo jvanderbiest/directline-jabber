@@ -1,4 +1,5 @@
---file ./src/@types/chatdown.ts
---require node_modules/ts-node/register ./src/**/*.spec.ts 
+
+--file ./src/tests/helpers/chatdown.ts
+--require node_modules/ts-node/register ./src/**/*.spec.ts
 --require node_modules/source-map-support/register
 --recursive

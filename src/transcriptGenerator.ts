@@ -1,12 +1,9 @@
-
-
 import path = require('path');
-import chatdown from 'chatdown';
-import { Activity } from 'chatdown-domain';
 import { FileInfo } from './domain/fileInfo';
 import { Extensions, ActivityTypes } from './constants';
 import { JabberActivity } from './domain/jabberActivity';
 import fs = require('fs');
+import * as chatdown from 'chatdown';
 
 /**
  * Transcript generator which consumes a .chat file to generate mock transcripts. Uses existing tool "chatdown" (https://github.com/microsoft/botbuilder-tools/tree/master/packages/Chatdown)
@@ -20,13 +17,13 @@ export class TranscriptGenerator {
     * @return {Promise<Activity[]} A promise with an array of activities that have been generated from the file
     */
 
-  async single(file: FileInfo): Promise<Activity[]> {
+  async single(file: FileInfo): Promise<chatdown.Activity[]> {
     var fileContents = fs.readFileSync(path.resolve(file.path), 'utf8');
-    var activities: Activity[] = new Array<Activity>();
+    var activities: chatdown.Activity[] = new Array<chatdown.Activity>();
 
     if (file.extension == Extensions.chatdown) {
       var args = { in: file.path };
-      await chatdown(fileContents, args).then((fileActivities: Activity[]) => {
+      await chatdown.default(fileContents, args).then((fileActivities: chatdown.Activity[]) => {
         activities = fileActivities.filter(x => x.from && x.recipient);
       });
     }
@@ -48,5 +45,3 @@ export class TranscriptGenerator {
     return activities;
   }
 }
-
-module.exports = { TranscriptGenerator : TranscriptGenerator };

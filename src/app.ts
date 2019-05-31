@@ -4,7 +4,6 @@ import { Processor } from './processor';
 import { RequestHandler } from './requestHandler';
 import { TranscriptGenerator } from './transcriptGenerator';
 import { ActivityHandler } from './activityHandler';
-import { resolve } from 'bluebird';
 
 class App {
     bootstrap() {

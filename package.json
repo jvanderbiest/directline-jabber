@@ -1,16 +1,21 @@
 {
   "name": "directline-jabber",
-  "version": "1.0.1",
+  "version": "1.0.2-rc6",
   "description": "uses chatdown to generate transcript files to automate testing using a directline connection",
   "main": "out/processor.js",
   "scripts": {
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test",
     "test": "mocha --opts mocha.opts",
     "test-coverage": "nyc mocha --opts mocha.opts",
-    "prestart": "npm run build",
     "build": "tsc",
     "buildserver": "npm run test-coverage",
     "start": "node out/app.js"
   },
+  "files": [
+    "out/**/*"
+  ],
+  "types": "out/processor.d.ts",
   "nyc": {
     "include": [
       "src/**/*.ts"
@@ -22,9 +27,6 @@
     ],
     "extension": [
       ".ts"
-    ],
-    "require": [
-      "ts-node/register"
     ],
     "reporter": [
       "text-summary",
@@ -60,6 +62,9 @@
     "@types/mocha": "^5.2.6",
     "@types/npmlog": "^4.1.1",
     "@types/sinon": "^7.0.11",
+    "@types/node": "^11.13.7",
+    "@types/request": "^2.48.1",
+    "@types/request-promise": "^4.1.42",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "coveralls": "^3.0.3",
@@ -72,21 +77,17 @@
     "sinon": "^7.3.2",
     "source-map-support": "^0.5.12",
     "ts-node": "^8.1.0",
-    "ts-node-dev": "^1.0.0-pre.32"
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.4.4",
+    "reflect-metadata": "^0.1.13"
   },
   "dependencies": {
-    "@types/node": "^11.13.7",
-    "@types/request": "^2.48.1",
-    "@types/request-promise": "^4.1.42",
     "chalk": "^2.4.2",
     "chatdown": "^1.2.0",
     "commander": "^2.20.0",
     "npmlog": "^4.1.2",
     "path": "^0.12.7",
-    "readdirp": "^3.0.1",
-    "reflect-metadata": "^0.1.13",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "typescript": "^3.4.4"
+    "request-promise": "^4.2.4"
   }
 }

@@ -1,9 +1,9 @@
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
 import { ActivityHandler } from '../activityHandler';
 import * as sinon from 'sinon';
-import { Activity } from 'chatdown-domain';
 import { RequestHandler } from '../requestHandler';
 import { ActivityHelper } from './helpers/activityHelper';
+import { Activity } from 'chatdown';
 
 describe('Activity handler tests', () => {
 	var sut: ActivityHandler;

@@ -59,7 +59,7 @@
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "--file",
-                "${workspaceFolder}/src/@types/chatdown.ts",
+                "${workspaceFolder}/src/tests/helpers/chatdown.ts",
                 "-r",
                 "node_modules/ts-node/register",
                 "--timeout",

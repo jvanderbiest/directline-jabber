@@ -5,10 +5,10 @@ import { Stats } from './stats';
 import { FileInfo } from './domain/fileInfo';
 import { Extensions } from './constants';
 import log = require('npmlog');
-var readdirp = require('readdirp');
+import { findFile } from './fileFinder';
 
 /** Handles the complete process to test transcripts with directline */
-export class Processor {
+class Processor {
     _activityHandler: ActivityHandler;
     _requestHandler: RequestHandler;
     _transcriptGenerator: TranscriptGenerator;
@@ -49,7 +49,11 @@ export class Processor {
 
         if (folders && folders.length > 0) {
             for (var folder of folders) {
-                const files = await readdirp.promise(folder, { depth: includeSubFolders ? 15 : 0 });
+                var extensions = new Array<string>();
+                extensions.push(Extensions.transcript);
+                extensions.push(Extensions.chatdown);
+
+                const files = findFile(folder, extensions, includeSubFolders);
                 files.map((file: any) => filesToProcess.push(new FileInfo(file.fullPath)));
             }
         }
@@ -88,4 +92,7 @@ export class Processor {
     }
 }
 
-module.exports = { Processor: Processor, ActivityHandler: ActivityHandler, RequestHandler: RequestHandler, TranscriptGenerator: TranscriptGenerator };
+export { Processor }
+export { ActivityHandler } from './activityHandler';
+export { RequestHandler } from './requestHandler';
+export { TranscriptGenerator } from './transcriptGenerator';

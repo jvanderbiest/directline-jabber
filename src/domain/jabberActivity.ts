@@ -1,6 +1,6 @@
-import { Attachment, ChannelAccount, Activity } from 'chatdown-domain';
 import { JabberAttachment } from './jabberAttachment';
 import { JabberChannelAccount } from './jabberChannelAccount';
+import { Activity } from 'chatdown';
 
 export class JabberActivity implements Activity {
     attachments: JabberAttachment[];

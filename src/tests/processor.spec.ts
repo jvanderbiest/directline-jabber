@@ -3,14 +3,13 @@ import { Processor } from '../processor';
 import { ActivityHandler } from '../activityHandler';
 import { TranscriptGenerator } from '../transcriptGenerator';
 import * as sinon from 'sinon';
-import { Activity } from 'chatdown-domain';
 import { JabberActivity } from '../domain/jabberActivity';
 import { FileInfo } from '../domain/fileInfo';
-import { FileSeedHelper } from './helpers/fileSeedHelper';
+import { Activity } from 'chatdown';
 var proxyquire = require('proxyquire');
 
 describe('Processor tests', () => {
-	var readdirpStub: any = {};
+	var fileFinderStub: any = {};
 	var sut: Processor;
 	var activityHandler: ActivityHandler;
 	var transcriptGenerator: TranscriptGenerator;
@@ -18,7 +17,7 @@ describe('Processor tests', () => {
 	const baseFolder = "c:\\folder";
 
 	beforeEach(async () => {
-		var proxyQuire = proxyquire('../processor', { 'readdirp': readdirpStub });
+		var proxyQuire = proxyquire('../processor', { './fileFinder': fileFinderStub });
 
 		activityHandler = new ActivityHandler(null)
 		transcriptGenerator = new TranscriptGenerator();
@@ -41,7 +40,7 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(null);
 			sinon.stub(activityHandler, "process");
 
-			readdirpStub.promise = async function (folder: string, subFolders: boolean) {
+			fileFinderStub.findFile = function () {
 				var files = new Array<any>();
 				files.push({fullPath: 'c:\\conversation.foo' });
 				files.push({fullPath: baseFile });
@@ -75,7 +74,7 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");
 
-			readdirpStub.promise = async function () {
+			fileFinderStub.findFile = function () {
 				var files = new Array<any>();
 				files.push({fullPath: baseFile });
 				return files;

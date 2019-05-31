@@ -3,9 +3,9 @@
 import request = require('request-promise');
 import constants = require('./constants');
 import { AuthenticationResponse } from './domain/responses/authenticationResponse';
-import { Activity } from 'chatdown-domain';
 import { EventActivityRequest } from './domain/requests/eventActivityRequest';
 import log = require('npmlog');
+import { Activity } from 'chatdown';
 
 /** Handles http requests */
 export class RequestHandler {
@@ -212,5 +212,3 @@ export class RequestHandler {
     return authResponse;
   }
 }
-
-module.exports = { RequestHandler: RequestHandler };
