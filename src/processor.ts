@@ -5,7 +5,7 @@ import { Stats } from './stats';
 import { FileInfo } from './domain/fileInfo';
 import { Extensions } from './constants';
 import log = require('npmlog');
-import { findFile } from './fileFinder';
+import { FileSearcher } from "./fileSearcher";
 
 /** Handles the complete process to test transcripts with directline */
 class Processor {
@@ -53,7 +53,7 @@ class Processor {
                 extensions.push(Extensions.transcript);
                 extensions.push(Extensions.chatdown);
 
-                const files = findFile(folder, extensions, includeSubFolders);
+                const files = FileSearcher.recursive(folder, extensions, includeSubFolders);
                 files.map((file: any) => filesToProcess.push(new FileInfo(file.fullPath)));
             }
         }

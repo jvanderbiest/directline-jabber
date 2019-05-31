@@ -9,7 +9,7 @@ import { Activity } from 'chatdown';
 var proxyquire = require('proxyquire');
 
 describe('Processor tests', () => {
-	var fileFinderStub: any = {};
+	var fileSearcherStub: any = {};
 	var sut: Processor;
 	var activityHandler: ActivityHandler;
 	var transcriptGenerator: TranscriptGenerator;
@@ -17,7 +17,7 @@ describe('Processor tests', () => {
 	const baseFolder = "c:\\folder";
 
 	beforeEach(async () => {
-		var proxyQuire = proxyquire('../processor', { './fileFinder': fileFinderStub });
+		var proxyQuire = proxyquire('../processor', { './fileSearcher': fileSearcherStub });
 
 		activityHandler = new ActivityHandler(null)
 		transcriptGenerator = new TranscriptGenerator();
@@ -40,7 +40,7 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(null);
 			sinon.stub(activityHandler, "process");
 
-			fileFinderStub.findFile = function () {
+			fileSearcherStub.FileSearcher.recursive = function () {
 				var files = new Array<any>();
 				files.push({fullPath: 'c:\\conversation.foo' });
 				files.push({fullPath: baseFile });
@@ -74,7 +74,7 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");
 
-			fileFinderStub.findFile = function () {
+			fileSearcherStub.FileSearcher.recursive = function () {
 				var files = new Array<any>();
 				files.push({fullPath: baseFile });
 				return files;

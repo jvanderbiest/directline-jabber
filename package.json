@@ -23,7 +23,7 @@
     "all": true,
     "exclude": [
       "src/app.ts",
-      "src/**/*.spec.ts"
+      "src/tests/**"
     ],
     "extension": [
       ".ts"

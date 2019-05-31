@@ -16,11 +16,11 @@ The current release 1.0.0 supports a limited scenario with text only. Other scen
 # Commandline arguments
 | Command | Flag | Description | Remarks
 | --- | --- | --- | --- |
-| `--files` | `-f` | chatdown file(s) to test. | Comma seperate for multiple
-| `--dirs` | `-d` | directory or directories with chatdown files to test | Comma seperate for multiple
+| `--files` | `-f` | chatdown/transcript file(s) to test. | Comma seperate for multiple
+| `--dirs` | `-d` | directory or directories with chatdown/transcript files to test | Comma seperate for multiple
 | `--secret` | `-s` | directline secret for authentication | Mutually exclusive with `endpoint`
 | `--endpoint` | `-e` | endpoint to retrieve directline token | Mutually exclusive with `secret`
-| `--recursive` | `-r` | recursivly scanning for chatdown files in directory' | defaults to `true`
+| `--recursive` | `-r` | recursivly scanning for files in directory' | defaults to `true`
 | `--verbose` | `-v` | enables verbose logging | defaults to `false`
 
 # Authentication
