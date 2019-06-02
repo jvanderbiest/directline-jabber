@@ -66,19 +66,20 @@ describe('FileSearcher tests', () => {
 			var hasmatch = result[0] == "c:\\foo.bar";
 			if (!hasmatch) {
 				// buildserver
-				hasmatch = result[0] == 'c:\\/foo.bar';
+				hasmatch = result[0] == 'c:/foo.bar';
 			}
 			expect(hasmatch).to.be.true;
 		});
 
-		it('should find files in subfolder', async () => {
+		it.only('should find files in subfolder', async () => {
 			fsStub.existsSync = function () {
 				return true;
 			};
 
 			fsStub.statSync = function (newFolderPath: string) {
 				var isDirectory = false;
-				if (newFolderPath == 'c:\\foo') {
+				console.log("newFolderPath " + newFolderPath);
+				if (newFolderPath == 'c:\\foo' || newFolderPath == 'c:/foo') {
 					isDirectory = true;
 				}
 				return { isDirectory: function() { return isDirectory; } };
@@ -87,12 +88,12 @@ describe('FileSearcher tests', () => {
 			fsStub.readdirSync = function (folderPath : string) {
 				var paths = new Array<string>();
 
-				console.log("folderpath: " + folderPath);
-				if (folderPath == 'c:/') {
+				console.log("folderpath " + folderPath);
+				if (folderPath == 'c:\\' || folderPath == 'c:/') {
 					paths.push("foo.bar");
 					paths.push("foo");
 				}
-				if (folderPath == 'c:/foo') {
+				if (folderPath == 'c:\\foo' || folderPath == 'c:/foo') {
 					paths.push("foo2.bar");
 				}
 
@@ -106,8 +107,16 @@ describe('FileSearcher tests', () => {
 
 			expect(fsStubSpy.called);
 			expect(result.length == 2).to.be.true;
-			expect(result[0]).equals("c:\\foo.bar");
-			expect(result[1]).equals("c:\\foo\\foo2.bar");
+
+			console.log('first result: ' + result[0]);
+			var firstMatch = false;
+			if (result[0] == "c:\\foo.bar" || result[0] == "c:/foo.bar") { firstMatch = true; }
+			expect(firstMatch).to.be.true;
+
+			console.log('second result: ' + result[1])
+			var secondMatch = false;
+			if (result[1] == "c:\\foo\\foo2.bar" || result[1] == "c:/foo/foo2.bar") { secondMatch = true; }
+			expect(secondMatch).to.be.true;
 		});
 	});
 });
