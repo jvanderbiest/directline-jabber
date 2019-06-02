@@ -30,9 +30,9 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(null);
 			sinon.stub(activityHandler, "process");
 
-			await sut.start(Array<string>(baseFile), null, false);
+			await sut.start(Array<string>(baseFile), null, false, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
 		});
 
@@ -47,10 +47,10 @@ describe('Processor tests', () => {
 				return files;
 			};
 
-			await sut.start(null, Array<string>(baseFolder), false);
+			await sut.start(null, Array<string>(baseFolder), false, false);
 
 			// only basefile has been processed
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
 		});
 
@@ -61,9 +61,9 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");
 
-			await sut.start(Array<string>(baseFile), null, false);
+			await sut.start(Array<string>(baseFile), null, false, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;
 		});
 		
@@ -80,9 +80,9 @@ describe('Processor tests', () => {
 				return files;
 			};
 
-			await sut.start(null, Array<string>(baseFolder), false);
+			await sut.start(null, Array<string>(baseFolder), false, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;
 		});
 	});

@@ -1,16 +1,11 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { JabberActivity } from '../domain/jabberActivity';
-import { FileInfo } from '../domain/fileInfo';
-import { Activity } from 'chatdown';
 
 var proxyquire = require('proxyquire');
 
 describe('FileSearcher tests', () => {
 	var pathStub: any = {};
 	var fsStub: any = {};
-	const baseFile = "c:\\folder\\file.chat";
-	const baseFolder = "c:\\folder";
 
 	describe('findFile', () => {
 		const FileSearcher = proxyquire('../fileSearcher', { 'path': pathStub, 'fs': fsStub }).FileSearcher;

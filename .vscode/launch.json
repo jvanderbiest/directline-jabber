@@ -42,7 +42,7 @@
             "name": "Token endpoint + folders",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--dirs", "c:\\chat-tests", "--endpoint", "https://", "-v", "-r"
+                "test", "--dirs", "c:/chat-tests", "--endpoint", "https://staging-conversation.ebo.ai/token?botId=1&env=test", "-v", "-r"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,

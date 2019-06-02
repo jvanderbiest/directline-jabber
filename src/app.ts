@@ -46,7 +46,7 @@ class App {
                 var activityHandler = new ActivityHandler(requestHandler);
                 var transcriptGenerator = new TranscriptGenerator()
                 var processor = new Processor(activityHandler, transcriptGenerator);
-                await processor.start(options.files, options.dirs, options.recursive);
+                await processor.start(options.files, options.dirs, options.recursive, false);
             });
 
         commander.parse(process.argv);

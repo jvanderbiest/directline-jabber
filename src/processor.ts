@@ -24,17 +24,18 @@ class Processor {
 
     /**
      * Starts processing files and folders
-     * @param files an array of filepaths
-     * @param folders an array of folders to scan for .chat files
-     * @param includeSubFolders includes sub folders when scanning up to 15 levels deep
+     * @param {Array<string>} files an array of filepaths
+     * @param {Array<string>} folders an array of folders to scan for .chat files
+     * @param {boolean} includeSubFolders includes sub folders when scanning
+     * @param {boolean} isAzureDevopsTask - Determines if the method is executed from an Azure Devops pipeline task
      */
-    async start(files: string[], folders: string[], includeSubFolders: boolean) {
+    async start(files: Array<string>, folders: Array<string>, includeSubFolders: boolean, isAzureDevopsTask? : boolean) {
         var filesToProcess = await this.readFilesFolders(files, folders, includeSubFolders);
 
         this._stats = new Stats(filesToProcess.length);
 
         for (var fileToProcess of filesToProcess) {
-            await this.single(fileToProcess);
+            await this.single(fileToProcess, isAzureDevopsTask);
         }
     }
 
@@ -54,7 +55,16 @@ class Processor {
                 extensions.push(Extensions.chatdown);
 
                 const files = FileSearcher.recursive(folder, extensions, includeSubFolders);
-                files.map((file: any) => filesToProcess.push(new FileInfo(file.fullPath)));
+
+                files.map((file: any) => {
+                    // compatibility with azure devops task. There is doesn't return fullPath.
+                    if (file.fullPath) {
+                        filesToProcess.push(new FileInfo(file.fullPath));
+                    }
+                    else {
+                        filesToProcess.push(new FileInfo(file));
+                    }
+                });
             }
         }
 
@@ -74,13 +84,14 @@ class Processor {
       * Processes a single test file
       *
       * @param {string} file - The filepath of the .chat file
+      * @param {boolean} isAzureDevopsTask - Determines if the method is executed from an Azure Devops pipeline task
       *
       */
-    private async single(file: FileInfo) {
+    private async single(file: FileInfo, isAzureDevopsTask: boolean) {
         this._stats.beginTest();
 
         log.verbose("FILE", `Loading file ${file}`);
-        var activities = await this._transcriptGenerator.single(file);
+        var activities = await this._transcriptGenerator.single(file, isAzureDevopsTask);
 
         if (!activities || activities.length <= 0) {
             log.warn("WRN", `No activities could be found in ${file.path}`);
