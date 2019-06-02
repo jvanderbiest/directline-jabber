@@ -62,6 +62,7 @@ describe('FileSearcher tests', () => {
 			expect(fsStubSpy.called);
 			expect(result.length == 1).to.be.true;
 
+			console.log(result[0]);
 			var hasmatch = result[0] == "c:\\foo.bar";
 			if (!hasmatch) {
 				// buildserver
@@ -86,6 +87,7 @@ describe('FileSearcher tests', () => {
 			fsStub.readdirSync = function (folderPath : string) {
 				var paths = new Array<string>();
 
+				console.log("folderpath: " + folderPath);
 				if (folderPath == 'c:/') {
 					paths.push("foo.bar");
 					paths.push("foo");
