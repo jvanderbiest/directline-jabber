@@ -57,11 +57,17 @@ describe('FileSearcher tests', () => {
 			var fsStubSpy = sinon.spy(fsStub.readdirSync);
 			var extensions = new Array<string>();
 			extensions.push('.bar');
-			var result = FileSearcher.recursive("c:\\", extensions, false);
+			var result = FileSearcher.recursive("c:/", extensions, false);
 
 			expect(fsStubSpy.called);
 			expect(result.length == 1).to.be.true;
-			expect(result[0]).equals("c:\\foo.bar");
+
+			var hasmatch = result[0] == "c:\\foo.bar";
+			if (!hasmatch) {
+				// buildserver
+				hasmatch = result[0] == 'c:\\/foo.bar';
+			}
+			expect(hasmatch).to.be.true;
 		});
 
 		it('should find files in subfolder', async () => {
@@ -80,11 +86,11 @@ describe('FileSearcher tests', () => {
 			fsStub.readdirSync = function (folderPath : string) {
 				var paths = new Array<string>();
 
-				if (folderPath == 'c:\\') {
+				if (folderPath == 'c:/') {
 					paths.push("foo.bar");
 					paths.push("foo");
 				}
-				if (folderPath == 'c:\\foo') {
+				if (folderPath == 'c:/foo') {
 					paths.push("foo2.bar");
 				}
 
@@ -94,7 +100,7 @@ describe('FileSearcher tests', () => {
 			var fsStubSpy = sinon.spy(fsStub.readdirSync);
 			var extensions = new Array<string>();
 			extensions.push('.bar');
-			var result = FileSearcher.recursive("c:\\", extensions, true);
+			var result = FileSearcher.recursive("c:/", extensions, true);
 
 			expect(fsStubSpy.called);
 			expect(result.length == 2).to.be.true;
