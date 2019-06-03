@@ -71,7 +71,7 @@ describe('FileSearcher tests', () => {
 			expect(hasmatch).to.be.true;
 		});
 
-		it.only('should find files in subfolder', async () => {
+		it('should find files in subfolder', async () => {
 			fsStub.existsSync = function () {
 				return true;
 			};
