@@ -4,7 +4,6 @@ import { Processor } from './processor';
 import { RequestHandler } from './requestHandler';
 import { TranscriptGenerator } from './transcriptGenerator';
 import { ActivityHandler } from './activityHandler';
-import { resolve } from 'bluebird';
 
 class App {
     bootstrap() {
@@ -47,7 +46,7 @@ class App {
                 var activityHandler = new ActivityHandler(requestHandler);
                 var transcriptGenerator = new TranscriptGenerator()
                 var processor = new Processor(activityHandler, transcriptGenerator);
-                await processor.start(options.files, options.dirs, options.recursive);
+                await processor.start(options.files, options.dirs, options.recursive, false);
             });
 
         commander.parse(process.argv);

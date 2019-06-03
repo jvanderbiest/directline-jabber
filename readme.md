@@ -6,7 +6,7 @@ DirectLine-Jabber focusses on automated integration testing for the [Microsoft B
 
 It tests your conversations by authenticating and sending the activities over [Direct Line]((https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-directline?view=azure-bot-service-4.0)). 
 
-The current release 1.0.0 supports a limited scenario with text only. Other scenario's with adaptive cards are scheduled for a later release.
+The current release 1.0.* supports a limited scenario with text only. Other scenario's with adaptive cards are scheduled for a later release.
 
 # Prerequisites
 - [node.js](https://nodejs.org/) v10+
@@ -16,11 +16,11 @@ The current release 1.0.0 supports a limited scenario with text only. Other scen
 # Commandline arguments
 | Command | Flag | Description | Remarks
 | --- | --- | --- | --- |
-| `--files` | `-f` | chatdown file(s) to test. | Comma seperate for multiple
-| `--dirs` | `-d` | directory or directories with chatdown files to test | Comma seperate for multiple
+| `--files` | `-f` | chatdown/transcript file(s) to test. | Comma seperate for multiple
+| `--dirs` | `-d` | directory or directories with chatdown/transcript files to test | Comma seperate for multiple
 | `--secret` | `-s` | directline secret for authentication | Mutually exclusive with `endpoint`
 | `--endpoint` | `-e` | endpoint to retrieve directline token | Mutually exclusive with `secret`
-| `--recursive` | `-r` | recursivly scanning for chatdown files in directory' | defaults to `true`
+| `--recursive` | `-r` | recursivly scanning for files in directory' | defaults to `true`
 | `--verbose` | `-v` | enables verbose logging | defaults to `false`
 
 # Authentication
@@ -52,6 +52,9 @@ $ npm test
 # Sample
 ![DirectLine-Jabber Chatdown example](/docs/screenshots/conversation.png?raw=true "Chatdown conversation")
 ![DirectLine-Jabber in action](/docs/screenshots/cmd-directline-jabber.png?raw=true "Command Line")
+
+# Azure Devops Pipeline Task
+There is a task available on the Visual Studio Marketplace to use for automated testing. Currently it only supports transcript files because of an issue in the chatdown library that is not supported by the azure-pipelines-task-lib package. A [tutorial](https://github.com/jvanderbiest/directline-jabber/wiki/Azure-DevOps-Pipeline-task) is available to configure this.
 
 # License
 DirectLine-Jabber is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the application. But you always need to state that this repository is the original author of this application.

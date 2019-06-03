@@ -1,4 +1,4 @@
-import { ChannelAccount } from "chatdown-domain";
+import { ChannelAccount } from "chatdown";
 
 export class JabberChannelAccount implements ChannelAccount {
     id: string;

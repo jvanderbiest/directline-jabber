@@ -3,14 +3,13 @@ import { Processor } from '../processor';
 import { ActivityHandler } from '../activityHandler';
 import { TranscriptGenerator } from '../transcriptGenerator';
 import * as sinon from 'sinon';
-import { Activity } from 'chatdown-domain';
 import { JabberActivity } from '../domain/jabberActivity';
 import { FileInfo } from '../domain/fileInfo';
-import { FileSeedHelper } from './helpers/fileSeedHelper';
+import { Activity } from 'chatdown';
 var proxyquire = require('proxyquire');
 
 describe('Processor tests', () => {
-	var readdirpStub: any = {};
+	var fileSearcherStub: any = {};
 	var sut: Processor;
 	var activityHandler: ActivityHandler;
 	var transcriptGenerator: TranscriptGenerator;
@@ -18,7 +17,7 @@ describe('Processor tests', () => {
 	const baseFolder = "c:\\folder";
 
 	beforeEach(async () => {
-		var proxyQuire = proxyquire('../processor', { 'readdirp': readdirpStub });
+		var proxyQuire = proxyquire('../processor', { './fileSearcher': fileSearcherStub });
 
 		activityHandler = new ActivityHandler(null)
 		transcriptGenerator = new TranscriptGenerator();
@@ -31,9 +30,9 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(null);
 			sinon.stub(activityHandler, "process");
 
-			await sut.start(Array<string>(baseFile), null, false);
+			await sut.start(Array<string>(baseFile), null, false, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
 		});
 
@@ -41,17 +40,17 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(null);
 			sinon.stub(activityHandler, "process");
 
-			readdirpStub.promise = async function (folder: string, subFolders: boolean) {
+			fileSearcherStub.FileSearcher.recursive = function () {
 				var files = new Array<any>();
 				files.push({fullPath: 'c:\\conversation.foo' });
 				files.push({fullPath: baseFile });
 				return files;
 			};
 
-			await sut.start(null, Array<string>(baseFolder), false);
+			await sut.start(null, Array<string>(baseFolder), false, false);
 
 			// only basefile has been processed
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).notCalled).to.be.true;
 		});
 
@@ -62,9 +61,9 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");
 
-			await sut.start(Array<string>(baseFile), null, false);
+			await sut.start(Array<string>(baseFile), null, false, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;
 		});
 		
@@ -75,15 +74,15 @@ describe('Processor tests', () => {
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
 			sinon.stub(activityHandler, "process");
 
-			readdirpStub.promise = async function () {
+			fileSearcherStub.FileSearcher.recursive = function () {
 				var files = new Array<any>();
 				files.push({fullPath: baseFile });
 				return files;
 			};
 
-			await sut.start(null, Array<string>(baseFolder), false);
+			await sut.start(null, Array<string>(baseFolder), false, false);
 
-			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile))).to.be.true;
+			expect((transcriptGenerator.single as sinon.SinonStub).calledWithExactly(new FileInfo(baseFile), false)).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(activities))).to.be.true;
 		});
 	});

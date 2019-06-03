@@ -1,4 +1,4 @@
-import { Attachment } from "chatdown-domain";
+import { Attachment } from "chatdown";
 
 export class JabberAttachment implements Attachment {
     contentType: string;

@@ -1,13 +1,14 @@
 
 export class FileSeedHelper {
     static chatdown1() : string {
+      // spacing is important here.
         return `user=user
-        bot=bot
+bot=testbot
         
-        user: where are you located?
-        bot: I did not get that. Can you please have another try?
-        user: where are you located?
-        bot: I apologise for not being able to handle your query. A human colleague will soon be in touch.  `;
+user: where are you located?
+bot: I did not get that. Can you please have another try?
+user: where are you located?
+bot: I apologise for not being able to handle your query. A human colleague will soon be in touch.`;
     }
 
     static transcript1(): string {

@@ -1,10 +1,10 @@
 import { expect, assert } from 'chai';
-import { Activity } from 'chatdown-domain';
 import { RequestHandler } from '../requestHandler';
 import { Directline } from '../constants';
 import { AuthenticationResponse } from '../domain/responses/authenticationResponse';
 import { EventActivityRequest } from '../domain/requests/eventActivityRequest';
 import { JabberActivity } from '../domain/jabberActivity';
+import { Activity } from 'chatdown';
 const nock = require('nock')
 
 describe('Request handler tests', () => {
