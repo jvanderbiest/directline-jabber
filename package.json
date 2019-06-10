@@ -1,6 +1,6 @@
 {
   "name": "directline-jabber",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Automated testing of Microsoft BotFramework chat conversations using directline",
   "main": "out/processor.js",
   "scripts": {
@@ -10,7 +10,9 @@
     "test-coverage": "nyc mocha --opts mocha.opts",
     "build": "tsc",
     "buildserver": "npm run test-coverage",
-    "start": "node out/app.js"
+    "start": "node out/app.js",
+    "patch": "npm version patch",
+    "pack": "npm pack"
   },
   "files": [
     "out/**/*"
