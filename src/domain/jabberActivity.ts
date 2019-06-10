@@ -7,7 +7,7 @@ export class JabberActivity implements Activity {
     text: string;
     timestamp: string;
     channelId: string;
-    id: number;
+    id: string;
     type: string;
     from: JabberChannelAccount;
     recipient: JabberChannelAccount;

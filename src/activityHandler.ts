@@ -22,7 +22,7 @@ export class ActivityHandler {
       */
     async process(activities: Activity[]): Promise<void> {
         var authResponse = await this._requestHandler.authenticate();
-
+        var messagesSent = new Array<string>(); 
         var totalReplies = 0;
 
         // do not use foreach with async, it's not supported without modification.
@@ -38,24 +38,26 @@ export class ActivityHandler {
                     }
                 }
 
-                var activityEvents = await this._requestHandler.getActivityResponse(authResponse);
+                var activityEvents = (await this._requestHandler.getActivityResponse(authResponse)).filter((x : Activity) => !messagesSent.includes(x.id));
+
                 var currentActivityEventId = activityEvents.length - totalReplies;
 
                 for (var n = currentActivityEventId; n < activityEvents.length; n++) {
                     var iterations = 0;
                     if (activities[i + iterations].text.trim() == activityEvents[n].text.trim()) {
-                        log.verbose("match", `text from file: ${activityEvents[0].text} matches bot text ${activityEvents[0].text}`);
+                        log.verbose("match", `text from file: ${activities[i + iterations].text} matches bot text ${activityEvents[n].text}`);
                     }
                     else {
-                        var errorMsg = `expected: ${activityEvents[0].text} but was ${activities[i + iterations].text}`;
+                        var errorMsg = `expected: ${activityEvents[n].text} but was ${activities[i + iterations].text}`;
                         log.error("mismatch", errorMsg);
-                        throw new Error(errorMsg)
+                        throw new Error(errorMsg);
                     }
                     iterations++;
                 }
             }
             else {
-                await this._requestHandler.sendActivity(authResponse, activities[i]);
+                var activityResponse = await this._requestHandler.sendActivity(authResponse, activities[i]);
+                messagesSent.push(activityResponse.id);
             }
         }
     }
