@@ -28,7 +28,7 @@ The current release 1.0.* supports a limited scenario with text only. Other scen
 You can use the secret key that comes with your Direct Line channel in your Azure bot channels registration.
 
 ## Token
-If your bot exposes a [token endpoint](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-authentication?view=azure-bot-service-4.0) that generates a token from the directlineSecret you can use that. Your token endpoint response response should be a token object `{token: ''}`, a token string or a stringified token string.
+If your bot exposes a [token endpoint](https://docs.microsoft.com/en-us/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-authentication?view=azure-bot-service-4.0) that generates a token from the directlineSecret you can use that. Your token endpoint response response should be a token object `{token: ''}`, a token string or a stringified token string. Click [here](https://github.com/jvanderbiest/directline-jabber-demo) for a demo implementation.
 
 # Installation
 Install the dependencies and start the app.
@@ -50,11 +50,11 @@ $ npm test
 ```
 
 # Sample
-![DirectLine-Jabber Chatdown example](/docs/screenshots/conversation.png?raw=true "Chatdown conversation")
-![DirectLine-Jabber in action](/docs/screenshots/cmd-directline-jabber.png?raw=true "Command Line")
+There is a complete tutorial available: https://github.com/jvanderbiest/directline-jabber-demo
 
 # Azure Devops Pipeline Task
-There is a task available on the Visual Studio Marketplace to use for automated testing. Currently it only supports transcript files because of an issue in the chatdown library that is not supported by the azure-pipelines-task-lib package. A [tutorial](https://github.com/jvanderbiest/directline-jabber/wiki/Azure-DevOps-Pipeline-task) is available to configure this.
+
+There is a task available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=jvanderbiest.directline-jabber-task) to use for automated testing. Currently it only supports transcript files because of an issue in the chatdown library that is not supported by the azure-pipelines-task-lib package. Pipeline source can be found [here](https://github.com/jvanderbiest/directline-jabber-az-pipeline)
 
 # License
 DirectLine-Jabber is licensed under The MIT License (MIT). Which means that you can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the application. But you always need to state that this repository is the original author of this application.
