@@ -6,6 +6,7 @@ import { AuthenticationResponse } from './domain/responses/authenticationRespons
 import { EventActivityRequest } from './domain/requests/eventActivityRequest';
 import log = require('npmlog');
 import { Activity } from 'chatdown';
+import { ResourceResponse } from './domain/responses/resourceResponse';
 
 /** Handles http requests */
 export class RequestHandler {
@@ -58,7 +59,7 @@ export class RequestHandler {
   * Sends an activity to the directline channel
   * @returns {Promise<AuthenticationResponse>}
   */
-  async sendEventActivity(authResponse: AuthenticationResponse, event: EventActivityRequest): Promise<void> {
+  async sendEventActivity(authResponse: AuthenticationResponse, event: EventActivityRequest): Promise<ResourceResponse> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
 
     const authOptions = {
@@ -70,11 +71,13 @@ export class RequestHandler {
       json: event
     };
 
-    function eventRequestCallback(body: any): void {
-      log.verbose("send event response", body);
+    function eventRequestCallback(body: any): ResourceResponse {
+      var resourceResponse = new ResourceResponse();
+      resourceResponse.id = body.id;
+      return resourceResponse;
     }
 
-    await request.post(authOptions)
+    return await request.post(authOptions)
       .then(eventRequestCallback, (error: any) => {
         throw new Error(error);
       })
@@ -84,7 +87,7 @@ export class RequestHandler {
   * Sends an activity to the directline channel
   * @returns {Promise<AuthenticationResponse>}
   */
-  async sendActivity(authResponse: AuthenticationResponse, activity: Activity): Promise<void> {
+  async sendActivity(authResponse: AuthenticationResponse, activity: Activity): Promise<ResourceResponse> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
 
     const authOptions = {
@@ -96,14 +99,16 @@ export class RequestHandler {
       json: activity
     };
 
-    function eventRequestCallback(body: any): void {
-      log.verbose("send activity response", body);
+    function eventRequestCallback(body: any): ResourceResponse {
+      var resourceResponse = new ResourceResponse();
+      resourceResponse.id = body.id;
+      return resourceResponse;
     }
 
-    await request.post(authOptions)
+    return await request.post(authOptions)
       .then(eventRequestCallback, (error: any) => {
         throw new Error(error);
-      })
+      });
   }
 
   /**

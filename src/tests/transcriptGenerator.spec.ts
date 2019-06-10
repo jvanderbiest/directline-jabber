@@ -16,7 +16,7 @@ describe('Transcript generator tests', () => {
 	});
 
 	describe('single', () => {
-		it('should parse and filter out typing activities from transcript file', async () => {
+		it('should parse and filter out typing activities from transcript 1 file', async () => {
 			fsStub.readFileSync = function () {
 				return FileSeedHelper.transcript1();
 			};

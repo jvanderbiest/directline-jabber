@@ -1,5 +1,5 @@
 import { JabberChannelAccount } from "../../domain/jabberChannelAccount";
-import { ActivityRoles } from "../../constants";
+import { ActivityRoles, ActivityTypes } from "../../constants";
 import { JabberActivity } from "../../domain/jabberActivity";
 
 export class ActivityHelper {
@@ -11,6 +11,7 @@ export class ActivityHelper {
 
     static generateBotActivity(text?: string) : JabberActivity {
         var activity = new JabberActivity();
+        activity.id = "1";
         activity.text = text;
         activity.from = ActivityHelper.generateBotRole();
         activity.recipient = ActivityHelper.generateUserRole();
@@ -24,10 +25,20 @@ export class ActivityHelper {
     }
 
     static generateUserActivity(text?: string): JabberActivity {
-		var activity = new JabberActivity();
+        var activity = new JabberActivity();
+        activity.id = "1";
         activity.text = text;
         activity.from = ActivityHelper.generateUserRole();
         activity.recipient = ActivityHelper.generateBotRole();
         return activity;
-	}
+    }
+    
+    static generateConversationUpdateEvent() : JabberActivity {
+        var activity = new JabberActivity();
+        activity.id = "1";
+        activity.from = ActivityHelper.generateUserRole();
+        activity.recipient = ActivityHelper.generateBotRole();
+        activity.type = 'conversationUpdate';
+        return activity;
+    }
 }

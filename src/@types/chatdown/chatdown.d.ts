@@ -23,7 +23,7 @@ declare module 'chatdown' {
       attachments: Attachment[];
       text: string;
       timestamp: string;
-      id: number;
+      id: string;
       type: string;
       from: ChannelAccount;
       recipient: ChannelAccount;

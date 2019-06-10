@@ -5,6 +5,7 @@ import { AuthenticationResponse } from '../domain/responses/authenticationRespon
 import { EventActivityRequest } from '../domain/requests/eventActivityRequest';
 import { JabberActivity } from '../domain/jabberActivity';
 import { Activity } from 'chatdown';
+import { ResourceResponse } from '../domain/responses/resourceResponse';
 const nock = require('nock')
 
 describe('Request handler tests', () => {
@@ -25,7 +26,9 @@ describe('Request handler tests', () => {
 			nock(`${Directline.conversation_endpoint}/${authResponse.conversationId}`)
 				.post(`/activities`, testActivity)
 				.matchHeader("authorization", (value: string) => value == `Bearer ${authResponse.token}`)
-				.reply(200);
+				.reply(200, {
+					body: new ResourceResponse()
+				});
 
 			sut = new RequestHandler(directlineSecret, null);
 			await sut.sendActivity(authResponse, testActivity);
@@ -44,7 +47,9 @@ describe('Request handler tests', () => {
 			nock(`${Directline.conversation_endpoint}/${authResponse.conversationId}`)
 				.post(`/activities`, eventActivityRequest)
 				.matchHeader("authorization", (value: string) => value == `Bearer ${authResponse.token}`)
-				.reply(200);
+				.reply(200, {
+					body: new ResourceResponse()
+				});
 
 			sut = new RequestHandler(directlineSecret, null);
 			await sut.sendEventActivity(authResponse, eventActivityRequest);

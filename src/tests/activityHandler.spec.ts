@@ -4,6 +4,7 @@ import * as sinon from 'sinon';
 import { RequestHandler } from '../requestHandler';
 import { ActivityHelper } from './helpers/activityHelper';
 import { Activity } from 'chatdown';
+import { ResourceResponse } from '../domain/responses/resourceResponse';
 
 describe('Activity handler tests', () => {
 	var sut: ActivityHandler;
@@ -30,7 +31,9 @@ describe('Activity handler tests', () => {
 			var activities = new Array<Activity>();
 			activities.push(botActivity);
 
-			sinon.stub(requestHandler, "sendActivity");
+			var sendActivityResponse = new ResourceResponse();
+			sendActivityResponse.id = '1';
+			sinon.stub(requestHandler, "sendActivity").resolves(sendActivityResponse);
 
 			await sut.process(activities);
 
@@ -44,7 +47,10 @@ describe('Activity handler tests', () => {
 			serverActivities.push(ActivityHelper.generateBotActivity("this is what the bot should NOT reply"));
 
 			sinon.stub(requestHandler, "getActivityResponse").resolves(serverActivities);
-			sinon.stub(requestHandler, "sendActivity");
+
+			var sendActivityResponse = new ResourceResponse();
+			sendActivityResponse.id = '1';
+			sinon.stub(requestHandler, "sendActivity").resolves(sendActivityResponse);
 
 			var activities = new Array<Activity>();
 			activities.push(ActivityHelper.generateBotActivity("this is what the bot should reply"));
@@ -65,13 +71,34 @@ describe('Activity handler tests', () => {
 			activities.push(userActivity);
 
 			sinon.stub(requestHandler, "getActivityResponse");
-			sinon.stub(requestHandler, "sendActivity");
+			var sendActivityResponse = new ResourceResponse();
+			sendActivityResponse.id = '1';
+			sinon.stub(requestHandler, "sendActivity").resolves(sendActivityResponse);
 
 			await sut.process(activities);
 
 			expect((requestHandler.authenticate as sinon.SinonStub).calledOnce).to.be.true;
 			expect((requestHandler.getActivityResponse as sinon.SinonStub).notCalled).to.be.true;
 			expect((requestHandler.sendActivity as sinon.SinonStub).calledOnceWithExactly(null, sinon.match(userActivity))).to.be.true;
+		});
+
+		it('should handle conversationUpdate event by sending it to directline', async () => {
+			var conversationUpdateActivity = ActivityHelper.generateConversationUpdateEvent();
+
+			sinon.stub(requestHandler, "getActivityResponse");
+
+			var activities = new Array<Activity>();
+			activities.push(conversationUpdateActivity);
+			
+			var sendActivityResponse = new ResourceResponse();
+			sendActivityResponse.id = '1';
+			sinon.stub(requestHandler, "sendActivity").resolves(sendActivityResponse);
+
+			await sut.process(activities);
+
+			expect((requestHandler.authenticate as sinon.SinonStub).calledOnce).to.be.true;
+			expect((requestHandler.getActivityResponse as sinon.SinonStub).notCalled).to.be.true;
+			expect((requestHandler.sendActivity as sinon.SinonStub).calledOnce).to.be.true;
 		});
 	});
 });
