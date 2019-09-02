@@ -5,8 +5,8 @@ import constants = require('./constants');
 import { AuthenticationResponse } from './domain/responses/authenticationResponse';
 import { EventActivityRequest } from './domain/requests/eventActivityRequest';
 import log = require('npmlog');
-import { Activity } from 'chatdown';
 import { ResourceResponse } from './domain/responses/resourceResponse';
+import { Activity } from './domain/activity';
 
 /** Handles http requests */
 export class RequestHandler {

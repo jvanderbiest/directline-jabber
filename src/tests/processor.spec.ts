@@ -5,7 +5,7 @@ import { TranscriptGenerator } from '../transcriptGenerator';
 import * as sinon from 'sinon';
 import { JabberActivity } from '../domain/jabberActivity';
 import { FileInfo } from '../domain/fileInfo';
-import { Activity } from 'chatdown';
+import { Activity } from '../domain/activity';
 var proxyquire = require('proxyquire');
 
 describe('Processor tests', () => {
@@ -13,7 +13,7 @@ describe('Processor tests', () => {
 	var sut: Processor;
 	var activityHandler: ActivityHandler;
 	var transcriptGenerator: TranscriptGenerator;
-	const baseFile = "c:\\folder\\file.chat";
+	const baseFile = "c:\\folder\\file.transcript";
 	const baseFolder = "c:\\folder";
 
 	beforeEach(async () => {

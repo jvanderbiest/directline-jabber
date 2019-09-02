@@ -1,4 +1,4 @@
-import { ChannelAccount } from "chatdown";
+import { ChannelAccount } from "./activity";
 
 export class JabberChannelAccount implements ChannelAccount {
     id: string;

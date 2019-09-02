@@ -52,7 +52,6 @@ class Processor {
             for (var folder of folders) {
                 var extensions = new Array<string>();
                 extensions.push(Extensions.transcript);
-                extensions.push(Extensions.chatdown);
 
                 const files = FileSearcher.recursive(folder, extensions, includeSubFolders);
 
@@ -71,8 +70,8 @@ class Processor {
         // remove and warn for invalid files
         for (var i = filesToProcess.length - 1; i >= 0; i--) {
             var ext = filesToProcess[i].extension;
-            if (ext !== Extensions.transcript && ext !== Extensions.chatdown) {
-                log.warn("WRN", `${filesToProcess[i].path} has an unknown extension and will be skipped. Only '*${Extensions.transcript}' and '*${Extensions.chatdown}' are recognized`);
+            if (ext !== Extensions.transcript) {
+                log.warn("WRN", `${filesToProcess[i].path} has an unknown extension and will be skipped. Only '*${Extensions.transcript}' files are recognized`);
                 filesToProcess.splice(i, 1);
             }
         }

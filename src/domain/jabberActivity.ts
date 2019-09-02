@@ -1,6 +1,6 @@
 import { JabberAttachment } from './jabberAttachment';
 import { JabberChannelAccount } from './jabberChannelAccount';
-import { Activity } from 'chatdown';
+import { Activity } from './activity';
 
 export class JabberActivity implements Activity {
     attachments: JabberAttachment[];

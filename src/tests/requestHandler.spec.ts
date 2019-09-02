@@ -4,8 +4,8 @@ import { Directline } from '../constants';
 import { AuthenticationResponse } from '../domain/responses/authenticationResponse';
 import { EventActivityRequest } from '../domain/requests/eventActivityRequest';
 import { JabberActivity } from '../domain/jabberActivity';
-import { Activity } from 'chatdown';
 import { ResourceResponse } from '../domain/responses/resourceResponse';
+import { Activity } from '../domain/activity';
 const nock = require('nock')
 
 describe('Request handler tests', () => {

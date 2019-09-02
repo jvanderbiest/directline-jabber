@@ -1,7 +1,7 @@
 import log = require('npmlog');
 import { RequestHandler } from './requestHandler';
 import { ActivityRoles } from './constants';
-import { Activity } from 'chatdown';
+import { Activity } from './domain/activity';
 
 /** Handles the complete process to test transcripts with directline */
 export class ActivityHandler {
