@@ -10,7 +10,7 @@
             "name": "Directline Secret + file",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--files", "c:\\chatdown\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
+                "test", "--files", "c:\\temp\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -26,7 +26,7 @@
             "name": "Token endpoint + files",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--files", "c:\\chatdown\\staging.chat,c:\\chatdown\\staging.chat", "--endpoint", "https://", "-v"
+                "test", "--files", "c:\\temp\\staging.chat,c:\\temp\\staging.chat", "--endpoint", "https://", "-v"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -58,8 +58,6 @@
             "name": "Mocha All",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "--file",
-                "${workspaceFolder}/src/tests/helpers/chatdown.ts",
                 "-r",
                 "node_modules/ts-node/register",
                 "--timeout",

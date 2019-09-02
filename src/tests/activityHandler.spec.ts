@@ -3,8 +3,8 @@ import { ActivityHandler } from '../activityHandler';
 import * as sinon from 'sinon';
 import { RequestHandler } from '../requestHandler';
 import { ActivityHelper } from './helpers/activityHelper';
-import { Activity } from 'chatdown';
 import { ResourceResponse } from '../domain/responses/resourceResponse';
+import { Activity } from '../domain/activity';
 
 describe('Activity handler tests', () => {
 	var sut: ActivityHandler;

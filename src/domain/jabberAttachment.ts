@@ -1,4 +1,4 @@
-import { Attachment } from "chatdown";
+import { Attachment } from "./activity";
 
 export class JabberAttachment implements Attachment {
     contentType: string;
