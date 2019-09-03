@@ -3,6 +3,7 @@ import { FileInfo } from './domain/fileInfo';
 import { Extensions, ActivityTypes } from './constants';
 import { JabberActivity } from './domain/jabberActivity';
 import fs = require('fs');
+import log = require('npmlog');
 import { Activity } from './domain/activity';
 
 /**
@@ -14,11 +15,10 @@ export class TranscriptGenerator {
     * Generates a transcript for a single file
     *
     * @param {FileInfo} file - A fileInfo object that contains a reference to a file on disk
-    * @param {boolean} isAzureDevopsTask - Determines if the method is executed from an Azure Devops pipeline task
     * @return {Promise<Activity[]} A promise with an array of activities that have been generated from the file
     */
 
-  async single(file: FileInfo, isAzureDevopsTask: boolean): Promise<Activity[]> {
+  async single(file: FileInfo): Promise<Activity[]> {
     var fileContents = fs.readFileSync(path.resolve(file.path), 'utf8');
     var activities: Activity[] = new Array<Activity>();
 
@@ -34,6 +34,9 @@ export class TranscriptGenerator {
             activities.push(jabberActivity);
           }
         }
+      }
+      else if (jsonActivities) {
+        throw new Error(`Activities have been found but were in incorrect format. Activities should be part of an array.`);
       }
     }
 

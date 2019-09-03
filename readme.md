@@ -16,10 +16,11 @@ The current release 1.0.* supports a limited scenario with text only. Other scen
 # Commandline arguments
 | Command | Flag | Description | Remarks
 | --- | --- | --- | --- |
-| `--files` | `-f` | transcript file(s) to test. | Comma seperate for multiple
-| `--dirs` | `-d` | directory or directories with transcript files to test | Comma seperate for multiple
-| `--secret` | `-s` | directline secret for authentication | Mutually exclusive with `endpoint`
-| `--endpoint` | `-e` | endpoint to retrieve directline token | Mutually exclusive with `secret`
+| `--files` |  | transcript file(s) to test. | Comma seperate for multiple
+| `--dirs` |  | directory or directories with transcript files to test | Comma seperate for multiple
+| `--preprocess` | | activities to process prior to the actual conversation file | 
+| `--secret` |  | directline secret for authentication | Mutually exclusive with `endpoint`
+| `--endpoint` |  | endpoint to retrieve directline token | Mutually exclusive with `secret`
 | `--recursive` | `-r` | recursivly scanning for files in directory' | defaults to `true`
 | `--verbose` | `-v` | enables verbose logging | defaults to `false`
 
@@ -51,6 +52,9 @@ $ npm test
 
 # Sample
 There is a complete tutorial available: https://github.com/jvanderbiest/directline-jabber-demo
+
+## Preprocessing
+In case you need to execute other activities prior to your conversation activities, you can use the preproccess flag to specify the activities file. This could be used to send custom events before your tests are executing.
 
 # Azure Devops Pipeline Task
 

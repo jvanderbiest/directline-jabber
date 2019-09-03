@@ -22,11 +22,14 @@ export class ActivityHandler {
       */
     async process(activities: Activity[]): Promise<void> {
         var authResponse = await this._requestHandler.authenticate();
-        var messagesSent = new Array<string>(); 
+
+        // ids of messages that are handled
+        var messages = new Array<string>(); 
         var totalReplies = 0;
 
         // do not use foreach with async, it's not supported without modification.
         for (var i = 0; i < activities.length; i++) {
+            // when we expect the bot to reply, check if there is a match
             if (activities[i].from.role == ActivityRoles.bot) {
                 totalReplies = 1;
                 for (var j = 1; j < activities.length - i; j++) {
@@ -38,26 +41,34 @@ export class ActivityHandler {
                     }
                 }
 
-                var activityEvents = (await this._requestHandler.getActivityResponse(authResponse)).filter((x : Activity) => !messagesSent.includes(x.id));
+                var allActivityEvents = (await this._requestHandler.getActivityResponse(authResponse));
+                var activityEvents = allActivityEvents.filter((x : Activity) => !messages.includes(x.id));
+                
+                if (activityEvents.length - totalReplies < 0) {
+                    log.error('ERROR', `We are expecting ${totalReplies} bot replies but we retrieved ${activityEvents.length} bot replies. A total of ${messages.length} messages have been sent so far.`);
+                }
 
-                var currentActivityEventId = activityEvents.length - totalReplies;
-
-                for (var n = currentActivityEventId; n < activityEvents.length; n++) {
-                    var iterations = 0;
+                var iterations = 0;
+                for (var n = 0; n < activityEvents.length; n++) {
                     if (activities[i + iterations].text.trim() == activityEvents[n].text.trim()) {
                         log.verbose("match", `text from file: ${activities[i + iterations].text} matches bot text ${activityEvents[n].text}`);
                     }
                     else {
-                        var errorMsg = `expected: ${activityEvents[n].text} but was ${activities[i + iterations].text}`;
+                        var errorMsg = `expected: '${activities[i + iterations].text}' but was '${activityEvents[n].text}'`;
                         log.error("mismatch", errorMsg);
                         throw new Error(errorMsg);
                     }
                     iterations++;
+                    messages.push(activityEvents[n].id);
                 }
+                
+                // skip handling this message as it has already been handled now.
+                i += iterations;
             }
             else {
+                // send out user queries
                 var activityResponse = await this._requestHandler.sendActivity(authResponse, activities[i]);
-                messagesSent.push(activityResponse.id);
+                messages.push(activityResponse.id);
             }
         }
     }

@@ -17,10 +17,11 @@ class App {
 
         commander
             .command('test')
-            .option('-f, --files [files]', 'transcript file(s) to test. Add multiple by comma seperating them.', commaSeparatedList)
-            .option('-d, --dirs [dirs]', 'directory or directories with transcript files to test', commaSeparatedList)
-            .option('-s, --secret [secret]', 'directline secret for authentication', null)
-            .option('-e, --endpoint [endpoint]', 'endpoint to retrieve directline token', null)
+            .option('--files [files]', 'transcript file(s) to test. Add multiple by comma seperating them.', commaSeparatedList)
+            .option('--dirs [dirs]', 'directory or directories with transcript files to test', commaSeparatedList)
+            .option('--preprocess [preprocess]', 'activities to process prior to the actual conversation file', null)
+            .option('--secret [secret]', 'directline secret for authentication', null)
+            .option('--endpoint [endpoint]', 'endpoint to retrieve directline token', null)
             .option('-r, --recursive', 'includes subfolders when scanning for transcript files', true)
             .option('-v, --verbose', 'enables verbose logging', false)
             .description('test a scenario using directline')
@@ -46,7 +47,7 @@ class App {
                 var activityHandler = new ActivityHandler(requestHandler);
                 var transcriptGenerator = new TranscriptGenerator()
                 var processor = new Processor(activityHandler, transcriptGenerator);
-                await processor.start(options.files, options.dirs, options.recursive, false);
+                await processor.start(options.files, options.dirs, options.recursive, options.preprocess);
             });
 
         commander.parse(process.argv);

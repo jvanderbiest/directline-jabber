@@ -3,6 +3,7 @@ import { JabberChannelAccount } from './jabberChannelAccount';
 import { Activity } from './activity';
 
 export class JabberActivity implements Activity {
+    name: string;
     attachments: JabberAttachment[];
     text: string;
     timestamp: string;
@@ -23,6 +24,7 @@ export class JabberActivity implements Activity {
             }
         }
 
+        this.name = activity.name;
         this.channelId = activity.channelId;
         this.text = activity.text;
         this.timestamp = activity.timestamp;
