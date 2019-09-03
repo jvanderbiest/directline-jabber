@@ -18,6 +18,7 @@ export interface Attachment {
   }
   
   export interface Activity {
+    name: string;
     attachments: Attachment[];
     text: string;
     timestamp: string;

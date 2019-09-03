@@ -21,16 +21,25 @@ describe('Transcript generator tests', () => {
 				return FileSeedHelper.transcript1();
 			};
 
-			var activities = await sut.single(new FileInfo("c:\\dir\\file.transcript"), false);
+			var activities = await sut.single(new FileInfo("c:\\dir\\file.transcript"));
 
 			expect(activities.filter(x => x.type == ActivityTypes.typing).length).to.equal(0, 'There should be no typing activities');
 		});
 
 
 		it('should only return activities if file extension matches', async () => {
-			var activities = await sut.single(new FileInfo("c:\\dir\\file.foo"), false);
+			var activities = await sut.single(new FileInfo("c:\\dir\\file.foo"));
 
 			expect(activities.length).to.equal(0, 'There should be no activities');
+		});
+
+		it('should throw when activities are not an array', async () => {
+			fsStub.readFileSync = function () {
+				return `{"some": "json"}`;
+			};
+
+			var error = await sut.single(new FileInfo("c:\\dir\\file.transcript")).catch(err => err);
+			expect(error.message).to.equal("Activities have been found but were in incorrect format. Activities should be part of an array.");
 		});
 	});
 });
