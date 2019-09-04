@@ -6,8 +6,6 @@ DirectLine-Jabber focusses on automated integration testing for the [Microsoft B
 
 It tests your conversations by authenticating and sending the activities over [Direct Line]((https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-directline?view=azure-bot-service-4.0)). 
 
-The current release 1.0.* supports a limited scenario with text only. Other scenario's with adaptive cards are scheduled for a later release.
-
 # Prerequisites
 - [node.js](https://nodejs.org/) v10+
 - a deployed bot instance
