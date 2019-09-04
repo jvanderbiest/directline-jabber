@@ -20,6 +20,8 @@ class App {
             .option('--files [files]', 'transcript file(s) to test. Add multiple by comma seperating them.', commaSeparatedList)
             .option('--dirs [dirs]', 'directory or directories with transcript files to test', commaSeparatedList)
             .option('--preprocess [preprocess]', 'activities to process prior to the actual conversation file', null)
+            .option('--userid [userid]', 'replaces user id in activities', null)
+            .option('--useridprefix [useridprefix]', 'prefixes userId in activities', null)
             .option('--secret [secret]', 'directline secret for authentication', null)
             .option('--endpoint [endpoint]', 'endpoint to retrieve directline token', null)
             .option('-r, --recursive', 'includes subfolders when scanning for transcript files', true)
@@ -45,7 +47,7 @@ class App {
 
                 var requestHandler = new RequestHandler(options.secret, options.endpoint);
                 var activityHandler = new ActivityHandler(requestHandler);
-                var transcriptGenerator = new TranscriptGenerator()
+                var transcriptGenerator = new TranscriptGenerator(options.userid, options.useridprefix)
                 var processor = new Processor(activityHandler, transcriptGenerator);
                 await processor.start(options.files, options.dirs, options.recursive, options.preprocess);
             });

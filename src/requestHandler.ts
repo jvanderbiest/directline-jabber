@@ -48,7 +48,7 @@ export class RequestHandler {
 
       if (parsedBody && parsedBody.activities && parsedBody.activities.length > 0) {
         for (var activity of parsedBody.activities) {
-          jabberActivities.push(new JabberActivity().parse(activity));
+          jabberActivities.push(new JabberActivity().parse(activity, null, null));
         }
       }
 

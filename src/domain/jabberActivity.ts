@@ -14,7 +14,7 @@ export class JabberActivity implements Activity {
     recipient: JabberChannelAccount;
     conversation: string;
 
-    parse(activity: any): JabberActivity {
+    parse(activity: any, userId: string, userIdPrefix: string): JabberActivity {
         if (!activity) { return; }
         
         if (activity.attachments && activity.attachments.length > 0) {
@@ -31,8 +31,8 @@ export class JabberActivity implements Activity {
         this.id = activity.id;
         this.type = activity.type;
 
-        this.from = new JabberChannelAccount().parse(activity.from);
-        this.recipient = new JabberChannelAccount().parse(activity.recipient);
+        this.from = new JabberChannelAccount().parse(activity.from, userId, userIdPrefix);
+        this.recipient = new JabberChannelAccount().parse(activity.recipient, userId, userIdPrefix);
         this.conversation = activity.conversation;
         return this;
     }

@@ -23,7 +23,7 @@ describe('A jabber activity', () => {
 				conversation: "conversation"
 			}
 
-			var jabberActivity = sut.parse(anyJabberActivity);
+			var jabberActivity = sut.parse(anyJabberActivity, null, null);
 			expect(jabberActivity.name).equals(anyJabberActivity.name);
 			expect(jabberActivity.attachments).to.have.length(1);
 			expect(jabberActivity.text).equals(anyJabberActivity.text);
@@ -35,7 +35,7 @@ describe('A jabber activity', () => {
 		});
 
 		it('should parse and return undefined object', async () => {
-			var jabberActivity = sut.parse(null);
+			var jabberActivity = sut.parse(null, null, null);
 			assert.isUndefined(jabberActivity);
 		});
 	});
