@@ -55,7 +55,7 @@ describe('Processor tests', () => {
 		});
 
 		it('should process file if there are activities', async () => {
-			var activities = new Array<Activity>();
+			var activities = new Array<JabberActivity>();
 			activities.push(new JabberActivity())
 
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
@@ -68,7 +68,7 @@ describe('Processor tests', () => {
 		});
 		
 		it('should process folder file if there are activities', async () => {
-			var activities = new Array<Activity>();
+			var activities = new Array<JabberActivity>();
 			activities.push(new JabberActivity())
 
 			sinon.stub(transcriptGenerator, "single").resolves(activities);
@@ -87,12 +87,12 @@ describe('Processor tests', () => {
 		});
 
 		it('should preprocess file and merge activities', async () => {
-			var preprocessActivities = new Array<Activity>();
+			var preprocessActivities = new Array<JabberActivity>();
 			var preprocessActivity = new JabberActivity();
 			preprocessActivity.name = "preprocess";
 			preprocessActivities.push(preprocessActivity);
 
-			var conversationActivities = new Array<Activity>();
+			var conversationActivities = new Array<JabberActivity>();
 			var conversationActivity = new JabberActivity();
 			conversationActivity.name = "converstation";
 			conversationActivities.push(conversationActivity);

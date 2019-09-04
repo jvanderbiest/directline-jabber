@@ -18,9 +18,9 @@ export class TranscriptGenerator {
     * @return {Promise<Activity[]} A promise with an array of activities that have been generated from the file
     */
 
-  async single(file: FileInfo): Promise<Activity[]> {
+  async single(file: FileInfo): Promise<JabberActivity[]> {
     var fileContents = fs.readFileSync(path.resolve(file.path), 'utf8');
-    var activities: Activity[] = new Array<Activity>();
+    var activities: JabberActivity[] = new Array<JabberActivity>();
 
     if (file.extension == Extensions.transcript) {
       var jsonActivities = JSON.parse(fileContents);

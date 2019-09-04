@@ -10,7 +10,7 @@
             "name": "Directline Secret + file",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--files", "c:\\temp\\azure-bootcamp-demo.chat", "-s", "YOUR_SECRET", "-v"
+                "test", "--files", "c:\\temp\\directline-jabber\\staging.transcript", "-s", "YOUR_SECRET", "-v"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,
@@ -42,7 +42,8 @@
             "name": "Token endpoint + folders",
             "program": "${workspaceFolder}\\src\\app.ts",
             "args": [
-                "test", "--dirs", "c:/chat-tests", "--endpoint", "https://staging-conversation.ebo.ai/token?botId=1&env=test", "-v", "-r"
+                "test", "--dirs", "c:\\temp\\directline-jabber", "--endpoint", "https:///token/", 
+                "--preprocess", "c:\\temp\\directline-jabber-pre\\event.transcript", "-v", "-r"
              ],
             "preLaunchTask": "npm: build",
             "sourceMaps": true,

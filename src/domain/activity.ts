@@ -1,8 +1,10 @@
 
 export interface Attachment {
+    content: object;
     contentType: string;
     contentUrl: string;
-    content: string;
+    name: string;
+    thumbnailUrl: string;
   }
   
   export interface ChannelAccount {
@@ -27,4 +29,29 @@ export interface Attachment {
     from: ChannelAccount;
     recipient: ChannelAccount;
     conversation: string;
+  }
+
+  export interface HeroCard {
+    buttons: CardAction[];
+    images: CardImage[];
+    subtitle: string;
+    tap: CardAction;
+    text: string;
+    title: string;
+  }
+
+  export interface CardAction {
+    channelData: string;
+    displayText: string;
+    image: string;
+    text: string;
+    title: string;
+    type: string;
+    value: object;
+  }
+
+  export interface CardImage {
+    alt: string;
+    tap: string;
+    url: string;
   }
