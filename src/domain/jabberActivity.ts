@@ -1,8 +1,9 @@
 import { JabberAttachment } from './jabberAttachment';
 import { JabberChannelAccount } from './jabberChannelAccount';
-import { Activity } from 'chatdown';
+import { Activity } from './activity';
 
 export class JabberActivity implements Activity {
+    name: string;
     attachments: JabberAttachment[];
     text: string;
     timestamp: string;
@@ -13,24 +14,25 @@ export class JabberActivity implements Activity {
     recipient: JabberChannelAccount;
     conversation: string;
 
-    parse(activity: any): JabberActivity {
+    parse(activity: any, userId: string, userIdPrefix: string): JabberActivity {
         if (!activity) { return; }
         
-        if (activity.attachments) {
+        if (activity.attachments && activity.attachments.length > 0) {
             this.attachments = new Array<JabberAttachment>();
             for (var attachment of activity.attachments) {
                 this.attachments.push(new JabberAttachment().parse(attachment));
             }
         }
 
+        this.name = activity.name;
         this.channelId = activity.channelId;
         this.text = activity.text;
         this.timestamp = activity.timestamp;
         this.id = activity.id;
         this.type = activity.type;
 
-        this.from = new JabberChannelAccount().parse(activity.from);
-        this.recipient = new JabberChannelAccount().parse(activity.recipient);
+        this.from = new JabberChannelAccount().parse(activity.from, userId, userIdPrefix);
+        this.recipient = new JabberChannelAccount().parse(activity.recipient, userId, userIdPrefix);
         this.conversation = activity.conversation;
         return this;
     }

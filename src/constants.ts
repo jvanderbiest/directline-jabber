@@ -14,6 +14,5 @@ export class ActivityRoles {
 }
 
 export class Extensions {
-  public static readonly chatdown = '.chat';
   public static readonly transcript = '.transcript';
 }

@@ -5,8 +5,9 @@ import constants = require('./constants');
 import { AuthenticationResponse } from './domain/responses/authenticationResponse';
 import { EventActivityRequest } from './domain/requests/eventActivityRequest';
 import log = require('npmlog');
-import { Activity } from 'chatdown';
 import { ResourceResponse } from './domain/responses/resourceResponse';
+import { Activity } from './domain/activity';
+import { JabberActivity } from './domain/jabberActivity';
 
 /** Handles http requests */
 export class RequestHandler {
@@ -22,7 +23,7 @@ export class RequestHandler {
     this._tokenEndpoint = tokenEndpoint;
   }
 
-  async getActivityResponse(authResponse: AuthenticationResponse, watermark?: number): Promise<Activity[]> {
+  async getActivityResponse(authResponse: AuthenticationResponse, watermark?: number): Promise<JabberActivity[]> {
     var conversationActivityEndpoint = `${constants.Directline.conversation_endpoint}/${authResponse.conversationId}/activities`;
 
     // watermark indicates the most recent message seen by the client
@@ -38,12 +39,20 @@ export class RequestHandler {
       }
     };
 
-    var response: Activity[];
+    var response: JabberActivity[];
     function eventRequestCallback(body: any): void {
+      var jabberActivities = new Array<JabberActivity>();
+
       // activities are returned in order.
-      var info: Activity[] = JSON.parse(body).activities;
-      response = info;
-      // mapResponse(body);
+      var parsedBody = JSON.parse(body);
+
+      if (parsedBody && parsedBody.activities && parsedBody.activities.length > 0) {
+        for (var activity of parsedBody.activities) {
+          jabberActivities.push(new JabberActivity().parse(activity, null, null));
+        }
+      }
+
+      response = jabberActivities;
       log.verbose("get activity response", body);
     }
 
