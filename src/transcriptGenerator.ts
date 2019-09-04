@@ -10,6 +10,13 @@ import { Activity } from './domain/activity';
  * Transcript generator which consumes a .transcript file to generate mock transcripts.
  */
 export class TranscriptGenerator {
+  _userId: string;
+  _userIdPrefix: string;
+
+  constructor(userId: string, userIdPrefix: string) {
+    this._userId = userId;
+    this._userIdPrefix = userIdPrefix;
+  }
 
   /**
     * Generates a transcript for a single file
@@ -27,7 +34,7 @@ export class TranscriptGenerator {
 
       if (Array.isArray(jsonActivities)) {
         for (var activity of jsonActivities) {
-          var jabberActivity = new JabberActivity().parse(activity);
+          var jabberActivity = new JabberActivity().parse(activity, this._userId, this._userIdPrefix);
 
           // filter out typing activities at an early stage so we don't have to deal with them later.
           if (jabberActivity.type != ActivityTypes.typing) {

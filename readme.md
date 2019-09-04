@@ -19,6 +19,8 @@ The current release 1.0.* supports a limited scenario with text only. Other scen
 | `--files` |  | transcript file(s) to test. | Comma seperate for multiple
 | `--dirs` |  | directory or directories with transcript files to test | Comma seperate for multiple
 | `--preprocess` | | activities to process prior to the actual conversation file | 
+| `--userid` | `-u` | replaces user id in activities | 
+| `--useridprefix` | | prefixes userId in activities | 
 | `--secret` |  | directline secret for authentication | Mutually exclusive with `endpoint`
 | `--endpoint` |  | endpoint to retrieve directline token | Mutually exclusive with `secret`
 | `--recursive` | `-r` | recursivly scanning for files in directory' | defaults to `true`
@@ -55,6 +57,9 @@ There is a complete tutorial available: https://github.com/jvanderbiest/directli
 
 ## Preprocessing
 In case you need to execute other activities prior to your conversation activities, you can use the preproccess flag to specify the activities file. This could be used to send custom events before your tests are executing.
+
+## UserId
+You could use a fixed user id in activities or use a prefix for each user id.
 
 # Azure Devops Pipeline Task
 

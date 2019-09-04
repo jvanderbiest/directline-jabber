@@ -140,6 +140,29 @@ describe('Activity handler tests', () => {
 			expect(error.message).to.be.a('string').and.satisfy((msg : any) => msg.startsWith("Hero cards were not equal."));
 		});
 
+		it('should ignore user messages when handling subsequent bot messages', async () => {
+			var serverActivities = new Array<JabberActivity>();
+			serverActivities.push(ActivityHelper.generateBotActivity("this is what the bot should reply"));
+
+			sinon.stub(requestHandler, "getActivityResponse").resolves(serverActivities);
+
+			var sendActivityResponse = new ResourceResponse();
+			sendActivityResponse.id = '1';
+			sinon.stub(requestHandler, "sendActivity").resolves(sendActivityResponse);
+
+			var activities = new Array<JabberActivity>();
+			activities.push(ActivityHelper.generateBotActivity("this is what the bot should reply"));
+			activities.push(ActivityHelper.generateUserActivity("hello"));
+
+			await sut.process(activities);
+
+			expect((requestHandler.authenticate as sinon.SinonStub).calledOnce).to.be.true;
+			// send out message from user after bot message has been handled 
+			expect((requestHandler.sendActivity as sinon.SinonStub).calledOnce).to.be.true;
+			// we only have 1 bot message to be handled
+			expect((requestHandler.getActivityResponse as sinon.SinonStub).calledOnce).to.be.true;
+		});
+
 		it('should throw if hero card buttons lenght is different', async () => {
 			var serverHeroCardActivity = ActivityHelper.generateHeroCardActivity(ActivityHelper.generateHeroCardAttachment(ActivityHelper.generateHeroCard()));
 

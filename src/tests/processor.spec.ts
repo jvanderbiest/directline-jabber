@@ -20,7 +20,7 @@ describe('Processor tests', () => {
 		var proxyQuire = proxyquire('../processor', { './fileSearcher': fileSearcherStub });
 
 		activityHandler = new ActivityHandler(null)
-		transcriptGenerator = new TranscriptGenerator();
+		transcriptGenerator = new TranscriptGenerator(null, null);
 
 		sut = new proxyQuire.Processor(activityHandler, transcriptGenerator);
 	});
