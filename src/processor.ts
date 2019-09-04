@@ -7,6 +7,7 @@ import { Extensions } from './constants';
 import log = require('npmlog');
 import { FileSearcher } from "./fileSearcher";
 import { Activity } from './domain/activity';
+import { JabberActivity } from './domain/jabberActivity';
 
 /** Handles the complete process to test transcripts with directline */
 class Processor {
@@ -31,7 +32,7 @@ class Processor {
      * @param {string} preprocessFile - a file that contains activities to process before the actual conversation
      */
     async start(files: Array<string>, folders: Array<string>, includeSubFolders: boolean, preprocessFile: string) {
-        var preProcessActivities = new Array<Activity>();
+        var preProcessActivities = new Array<JabberActivity>();
         
         if (preprocessFile) {
             var preprocessFiles = new Array<string>();
@@ -95,9 +96,9 @@ class Processor {
     /**
       * Processes a single test file
       * @param {string} file - The filepath of the .chat file
-      * @param {Array<Activity>} preprocessActivities to process prior to the actual conversation
+      * @param {Array<JabberActivity>} preprocessActivities to process prior to the actual conversation
       */
-    private async single(preprocessActivities: Array<Activity>, file: FileInfo) {
+    private async single(preprocessActivities: Array<JabberActivity>, file: FileInfo) {
         this._stats.beginTest();
 
         log.verbose("FILE", `Loading file ${file}`);

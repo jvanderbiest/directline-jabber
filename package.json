@@ -85,6 +85,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "commander": "^3.0.1",
+    "fast-deep-equal": "^3.0.0-beta.1",
     "npmlog": "^4.1.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
