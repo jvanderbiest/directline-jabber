@@ -61,6 +61,8 @@ You could use a fixed user id in activities or use a prefix for each user id.
 
 # Azure Devops Pipeline Task
 
+![Directline Jabber](https://github.com/jvanderbiest/directline-jabber-az-pipeline/blob/master/images/extension-icon.png)
+
 There is a task available on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=jvanderbiest.directline-jabber-task) to use for automated testing. Pipeline source can be found [here](https://github.com/jvanderbiest/directline-jabber-az-pipeline)
 
 # License
