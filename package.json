@@ -1,6 +1,6 @@
 {
   "name": "directline-jabber",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Automated testing of Microsoft BotFramework chat conversations using directline",
   "main": "out/processor.js",
   "scripts": {
