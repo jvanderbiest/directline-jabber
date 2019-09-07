@@ -38,7 +38,14 @@ class Processor {
             var preprocessFiles = new Array<string>();
             preprocessFiles.push(preprocessFile);
 
+            // todo, check for path error here
+
             var filesToPreProcess = await this.readFilesFolders(preprocessFiles, null, false);
+
+            if (!filesToPreProcess || filesToPreProcess.length == 0) {
+                throw new Error(`Preprocessor could not resolve any file to process.`);
+            }
+
             preProcessActivities = await this._transcriptGenerator.single(filesToPreProcess[0]);
         }
 
