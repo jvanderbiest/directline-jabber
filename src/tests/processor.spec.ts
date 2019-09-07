@@ -111,5 +111,19 @@ describe('Processor tests', () => {
 			expect((transcriptGenerator.single as sinon.SinonStub).getCall(1).calledWithExactly(new FileInfo(baseFile))).to.be.true;
 			expect((activityHandler.process as sinon.SinonStub).calledWithExactly(sinon.match(allActivities))).to.be.true;
 		});
+
+		it('should not continue if preprocess did not resolve the file', async () => {
+			
+			var singleStub = sinon.stub(transcriptGenerator, "single");
+			singleStub.resolves(null);
+			sinon.stub(activityHandler, "process");
+
+			var preprocessFile = "c:\\file.ignoreme";
+
+			var error = await sut.start(Array<string>(baseFile), null, false, preprocessFile).catch(err => err);
+			expect(error.message).to.equal("Preprocessor could not resolve any file to process.");
+
+			expect((transcriptGenerator.single as sinon.SinonStub).notCalled).to.be.true;
+		});
 	});
 });
